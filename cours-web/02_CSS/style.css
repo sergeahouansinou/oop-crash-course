@@ -1,0 +1,1154 @@
+/* ============================================================
+   FICHIER CSS COMPLET - COURS CSS POUR DÉBUTANTS
+   Ce fichier démontre toutes les notions vues dans le cours.
+   Chaque section est commentée en français.
+   ============================================================ */
+
+
+/* ============================================================
+   1. VARIABLES CSS (PROPRIÉTÉS PERSONNALISÉES)
+   On déclare toutes nos variables dans :root pour
+   qu'elles soient accessibles partout dans le fichier.
+   ============================================================ */
+
+:root {
+    /* --- Couleurs principales --- */
+    --couleur-principale: #3498db;        /* Bleu principal du site */
+    --couleur-principale-foncee: #2980b9; /* Version plus foncée pour les survols */
+    --couleur-secondaire: #2ecc71;        /* Vert secondaire */
+    --couleur-secondaire-foncee: #27ae60; /* Version plus foncée du vert */
+    --couleur-accent: #e74c3c;            /* Rouge pour les accents et alertes */
+
+    /* --- Couleurs de texte --- */
+    --couleur-texte: #333333;             /* Couleur principale du texte (gris très foncé) */
+    --couleur-texte-clair: #666666;       /* Texte secondaire (gris moyen) */
+    --couleur-texte-inverse: #ffffff;     /* Texte sur fond foncé */
+
+    /* --- Couleurs de fond --- */
+    --couleur-fond: #f4f4f8;              /* Fond général de la page */
+    --couleur-fond-blanc: #ffffff;        /* Fond blanc pour les cartes */
+    --couleur-fond-sombre: #2c3e50;      /* Fond sombre pour header/footer */
+
+    /* --- Typographie --- */
+    --police-principale: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --police-titres: 'Georgia', 'Times New Roman', serif;
+    --police-code: 'Courier New', Courier, monospace;
+    --taille-base: 16px;                  /* Taille de base du texte */
+    --hauteur-ligne: 1.6;                 /* Espacement entre les lignes */
+
+    /* --- Espacements --- */
+    --espacement-xs: 0.25rem;             /* 4px - très petit espacement */
+    --espacement-sm: 0.5rem;              /* 8px - petit espacement */
+    --espacement-md: 1rem;                /* 16px - espacement moyen */
+    --espacement-lg: 1.5rem;              /* 24px - grand espacement */
+    --espacement-xl: 2rem;                /* 32px - très grand espacement */
+    --espacement-xxl: 3rem;               /* 48px - espacement pour les sections */
+
+    /* --- Bordures et ombres --- */
+    --rayon-bordure: 8px;                 /* Arrondi des coins des cartes */
+    --rayon-bordure-petit: 4px;           /* Petit arrondi (boutons, badges) */
+    --rayon-bordure-rond: 50%;            /* Cercle parfait */
+    --ombre-legere: 0 2px 5px rgba(0, 0, 0, 0.1);     /* Ombre discrète */
+    --ombre-moyenne: 0 4px 15px rgba(0, 0, 0, 0.15);   /* Ombre moyenne */
+    --ombre-forte: 0 8px 30px rgba(0, 0, 0, 0.2);      /* Ombre prononcée */
+
+    /* --- Transitions --- */
+    --transition-rapide: 0.2s ease;       /* Transition rapide (survols) */
+    --transition-normale: 0.3s ease;      /* Transition standard */
+    --transition-lente: 0.5s ease;        /* Transition lente (apparitions) */
+
+    /* --- Dimensions --- */
+    --largeur-max: 1200px;                /* Largeur maximale du contenu */
+    --largeur-sidebar: 280px;             /* Largeur de la barre latérale */
+    --hauteur-header: 70px;               /* Hauteur de l'en-tête */
+}
+
+
+/* ============================================================
+   2. RESET CSS ET STYLES DE BASE
+   On "réinitialise" les styles par défaut du navigateur
+   pour partir sur une base cohérente.
+   ============================================================ */
+
+/* --- Reset universel --- */
+*,
+*::before,
+*::after {
+    margin: 0;                            /* Supprime les marges par défaut */
+    padding: 0;                           /* Supprime les paddings par défaut */
+    box-sizing: border-box;               /* Le padding et la bordure sont inclus dans la largeur */
+}
+
+/* --- Comportement de défilement fluide --- */
+html {
+    font-size: var(--taille-base);        /* Taille de base pour les unités rem */
+    scroll-behavior: smooth;              /* Défilement fluide pour les ancres */
+}
+
+/* --- Corps de la page --- */
+body {
+    font-family: var(--police-principale); /* Police par défaut du site */
+    font-size: 1rem;                       /* 16px (1 × la taille de base) */
+    line-height: var(--hauteur-ligne);     /* Espacement entre les lignes */
+    color: var(--couleur-texte);           /* Couleur du texte */
+    background-color: var(--couleur-fond); /* Couleur de fond */
+    min-height: 100vh;                     /* La page prend au minimum toute la hauteur de l'écran */
+}
+
+/* --- Images responsives par défaut --- */
+img {
+    max-width: 100%;                       /* L'image ne dépasse jamais son conteneur */
+    height: auto;                          /* Garde le ratio hauteur/largeur */
+    display: block;                        /* Supprime l'espace sous l'image (inline par défaut) */
+}
+
+/* --- Liens de base --- */
+a {
+    color: var(--couleur-principale);      /* Couleur des liens */
+    text-decoration: none;                 /* Retire le soulignement par défaut */
+    transition: color var(--transition-rapide); /* Transition douce sur le changement de couleur */
+}
+
+a:hover {
+    color: var(--couleur-principale-foncee); /* Couleur plus foncée au survol */
+    text-decoration: underline;              /* Soulignement au survol */
+}
+
+a:focus {
+    outline: 2px solid var(--couleur-principale); /* Contour visible au focus (accessibilité) */
+    outline-offset: 2px;                          /* Petit espace entre le contour et l'élément */
+}
+
+/* --- Listes --- */
+ul, ol {
+    list-style: none;                      /* Supprime les puces/numéros par défaut */
+}
+
+
+/* ============================================================
+   3. TYPOGRAPHIE
+   Styles pour les titres, paragraphes et textes divers.
+   ============================================================ */
+
+/* --- Titres --- */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--police-titres);     /* Police spéciale pour les titres */
+    font-weight: 700;                      /* Gras (bold) */
+    line-height: 1.2;                      /* Hauteur de ligne réduite pour les titres */
+    color: var(--couleur-fond-sombre);     /* Couleur sombre pour les titres */
+    margin-bottom: var(--espacement-md);   /* Espace sous chaque titre */
+}
+
+h1 {
+    font-size: 2.5rem;                     /* 40px */
+}
+
+h2 {
+    font-size: 2rem;                       /* 32px */
+}
+
+h3 {
+    font-size: 1.5rem;                     /* 24px */
+}
+
+h4 {
+    font-size: 1.25rem;                    /* 20px */
+}
+
+h5 {
+    font-size: 1.1rem;                     /* ~18px */
+}
+
+h6 {
+    font-size: 1rem;                       /* 16px */
+}
+
+/* --- Paragraphes --- */
+p {
+    margin-bottom: var(--espacement-md);   /* Espace sous chaque paragraphe */
+    color: var(--couleur-texte);           /* Couleur du texte */
+}
+
+/* --- Texte en gras --- */
+strong, b {
+    font-weight: 700;                      /* Gras */
+}
+
+/* --- Texte en italique --- */
+em, i {
+    font-style: italic;                    /* Italique */
+}
+
+/* --- Texte petit --- */
+small {
+    font-size: 0.875rem;                   /* 14px - un peu plus petit */
+    color: var(--couleur-texte-clair);     /* Couleur plus claire */
+}
+
+/* --- Texte de code --- */
+code {
+    font-family: var(--police-code);       /* Police à chasse fixe */
+    font-size: 0.9rem;                     /* Légèrement plus petit */
+    background-color: #eef2f7;             /* Fond gris clair pour distinguer le code */
+    padding: var(--espacement-xs) var(--espacement-sm); /* Petit padding */
+    border-radius: var(--rayon-bordure-petit);          /* Léger arrondi */
+}
+
+/* --- Bloc de citation --- */
+blockquote {
+    border-left: 4px solid var(--couleur-principale);  /* Barre colorée à gauche */
+    padding: var(--espacement-md) var(--espacement-lg); /* Espacement intérieur */
+    margin: var(--espacement-lg) 0;                     /* Marge verticale */
+    background-color: rgba(52, 152, 219, 0.05);        /* Fond très légèrement bleuté */
+    font-style: italic;                                 /* Texte en italique */
+    color: var(--couleur-texte-clair);                  /* Couleur plus douce */
+}
+
+
+/* ============================================================
+   4. MISE EN PAGE GÉNÉRALE AVEC CSS GRID
+   Structure de la page : header, nav, main, sidebar, footer.
+   ============================================================ */
+
+/* --- Conteneur principal de la page --- */
+.page {
+    display: grid;                         /* Active CSS Grid */
+    grid-template-columns: 1fr;            /* Une seule colonne sur mobile (mobile-first) */
+    grid-template-rows: auto 1fr auto;     /* Header auto, contenu flexible, footer auto */
+    min-height: 100vh;                     /* Prend au minimum toute la hauteur de l'écran */
+}
+
+/* --- Conteneur générique pour centrer le contenu --- */
+.conteneur {
+    width: 100%;                           /* Prend toute la largeur disponible */
+    max-width: var(--largeur-max);         /* Ne dépasse pas 1200px */
+    margin: 0 auto;                        /* Centré horizontalement grâce aux marges auto */
+    padding: 0 var(--espacement-md);       /* Padding latéral pour que le contenu ne colle pas aux bords */
+}
+
+
+/* ============================================================
+   5. EN-TÊTE (HEADER)
+   Barre fixe en haut de la page avec navigation Flexbox.
+   ============================================================ */
+
+.header {
+    position: fixed;                       /* Fixé en haut de la fenêtre */
+    top: 0;                                /* Collé tout en haut */
+    left: 0;                               /* Collé à gauche */
+    width: 100%;                           /* Prend toute la largeur */
+    height: var(--hauteur-header);         /* Hauteur fixe de 70px */
+    background-color: var(--couleur-fond-sombre); /* Fond sombre */
+    z-index: 1000;                         /* Au-dessus de tous les autres éléments */
+    box-shadow: var(--ombre-legere);       /* Petite ombre pour un effet de profondeur */
+}
+
+.header .conteneur {
+    display: flex;                         /* Flexbox pour aligner logo et nav */
+    justify-content: space-between;        /* Logo à gauche, nav à droite */
+    align-items: center;                   /* Centré verticalement */
+    height: 100%;                          /* Prend toute la hauteur du header */
+}
+
+/* --- Logo --- */
+.logo {
+    font-family: var(--police-titres);     /* Police spéciale */
+    font-size: 1.5rem;                     /* Taille plus grande */
+    font-weight: 700;                      /* Gras */
+    color: var(--couleur-texte-inverse);   /* Texte blanc */
+    text-decoration: none;                 /* Pas de soulignement */
+    letter-spacing: 1px;                   /* Léger espacement entre les lettres */
+}
+
+.logo:hover {
+    color: var(--couleur-principale);      /* Bleu au survol */
+    text-decoration: none;                 /* Pas de soulignement même au survol */
+}
+
+
+/* ============================================================
+   6. NAVIGATION
+   Menu horizontal avec Flexbox et transitions.
+   ============================================================ */
+
+.nav {
+    display: flex;                         /* Les liens sont en ligne (flexbox) */
+    align-items: center;                   /* Centrés verticalement */
+    gap: var(--espacement-sm);             /* Espacement entre chaque lien */
+}
+
+.nav__lien {
+    color: var(--couleur-texte-inverse);   /* Texte blanc */
+    text-decoration: none;                 /* Pas de soulignement */
+    padding: var(--espacement-sm) var(--espacement-md); /* Padding pour agrandir la zone cliquable */
+    border-radius: var(--rayon-bordure-petit);          /* Léger arrondi */
+    font-size: 0.95rem;                    /* Taille légèrement réduite */
+    font-weight: 500;                      /* Semi-gras */
+    transition: background-color var(--transition-rapide),
+                color var(--transition-rapide); /* Transition douce */
+    position: relative;                    /* Nécessaire pour le pseudo-élément */
+}
+
+/* --- Effet de soulignement animé au survol --- */
+.nav__lien::after {
+    content: "";                           /* Contenu vide obligatoire pour ::after */
+    position: absolute;                    /* Positionné par rapport au lien (relative) */
+    bottom: 0;                             /* Collé en bas du lien */
+    left: 50%;                             /* Commence au milieu */
+    width: 0;                              /* Largeur 0 par défaut (invisible) */
+    height: 2px;                           /* Épaisseur de la ligne */
+    background-color: var(--couleur-principale); /* Couleur de la ligne */
+    transition: width var(--transition-normale),
+                left var(--transition-normale);  /* Animation de la largeur */
+}
+
+.nav__lien:hover::after {
+    width: 100%;                           /* La ligne fait toute la largeur au survol */
+    left: 0;                               /* Commence à gauche */
+}
+
+.nav__lien:hover {
+    color: var(--couleur-principale);      /* Texte bleu au survol */
+    text-decoration: none;                 /* Pas de soulignement (on utilise ::after) */
+}
+
+/* --- Lien actif (page en cours) --- */
+.nav__lien--actif {
+    color: var(--couleur-principale);      /* Bleu pour indiquer la page active */
+}
+
+.nav__lien--actif::after {
+    width: 100%;                           /* Ligne visible en permanence */
+    left: 0;
+}
+
+
+/* ============================================================
+   7. SECTION HERO (BANNIÈRE D'ACCUEIL)
+   Grande section de bienvenue centrée avec Flexbox.
+   ============================================================ */
+
+.hero {
+    display: flex;                         /* Flexbox pour centrer le contenu */
+    flex-direction: column;                /* Contenu empilé verticalement */
+    justify-content: center;              /* Centré verticalement */
+    align-items: center;                   /* Centré horizontalement */
+    text-align: center;                    /* Texte centré */
+    min-height: 100vh;                     /* Prend toute la hauteur de la fenêtre */
+    padding: var(--espacement-xxl) var(--espacement-md); /* Grand padding */
+    padding-top: calc(var(--hauteur-header) + var(--espacement-xxl));
+        /* calc() permet de faire des calculs : hauteur du header + espacement */
+    background: linear-gradient(135deg, var(--couleur-fond-sombre), #34495e);
+        /* Dégradé diagonal du sombre vers un bleu-gris */
+    color: var(--couleur-texte-inverse);   /* Texte blanc */
+}
+
+/* --- Titre du hero avec animation d'apparition --- */
+.hero__titre {
+    font-size: 3rem;                       /* Grand titre */
+    margin-bottom: var(--espacement-lg);   /* Espace en dessous */
+    color: var(--couleur-texte-inverse);   /* Texte blanc */
+    animation: apparitionTitre 1s ease forwards; /* Animation au chargement */
+}
+
+/* --- Sous-titre du hero --- */
+.hero__sous-titre {
+    font-size: 1.3rem;                     /* Taille moyenne */
+    color: rgba(255, 255, 255, 0.8);       /* Blanc légèrement transparent */
+    margin-bottom: var(--espacement-xl);   /* Espace en dessous */
+    max-width: 600px;                       /* Largeur maximale pour la lisibilité */
+    animation: apparitionTitre 1s ease 0.3s forwards; /* Même animation avec un délai */
+    opacity: 0;                            /* Invisible au départ (l'animation le rend visible) */
+}
+
+
+/* ============================================================
+   8. BOUTONS
+   Styles de boutons avec pseudo-classes et transitions.
+   ============================================================ */
+
+.bouton {
+    display: inline-block;                 /* inline-block : en ligne mais avec largeur/hauteur */
+    padding: var(--espacement-sm) var(--espacement-xl); /* Padding intérieur */
+    font-size: 1rem;                       /* Taille du texte */
+    font-weight: 600;                      /* Semi-gras */
+    text-align: center;                    /* Texte centré */
+    text-decoration: none;                 /* Pas de soulignement */
+    border: 2px solid transparent;         /* Bordure transparente (pour garder la même taille) */
+    border-radius: var(--rayon-bordure);   /* Coins arrondis */
+    cursor: pointer;                       /* Curseur en forme de main au survol */
+    transition: all var(--transition-normale); /* Transition douce sur toutes les propriétés */
+}
+
+/* --- Bouton principal (fond coloré) --- */
+.bouton--principal {
+    background-color: var(--couleur-principale); /* Fond bleu */
+    color: var(--couleur-texte-inverse);          /* Texte blanc */
+}
+
+.bouton--principal:hover {
+    background-color: var(--couleur-principale-foncee); /* Fond plus foncé au survol */
+    transform: translateY(-2px);                         /* Légèrement soulevé */
+    box-shadow: var(--ombre-moyenne);                    /* Ombre au survol */
+    text-decoration: none;                               /* Pas de soulignement */
+    color: var(--couleur-texte-inverse);                 /* Texte blanc */
+}
+
+.bouton--principal:active {
+    transform: translateY(0);              /* Revient en position normale au clic */
+    box-shadow: var(--ombre-legere);       /* Ombre réduite */
+}
+
+/* --- Bouton secondaire (contour) --- */
+.bouton--secondaire {
+    background-color: transparent;         /* Fond transparent */
+    color: var(--couleur-texte-inverse);   /* Texte blanc */
+    border-color: var(--couleur-texte-inverse); /* Bordure blanche */
+}
+
+.bouton--secondaire:hover {
+    background-color: var(--couleur-texte-inverse); /* Fond blanc au survol */
+    color: var(--couleur-fond-sombre);               /* Texte sombre */
+    text-decoration: none;                            /* Pas de soulignement */
+}
+
+/* --- Bouton succès (vert) --- */
+.bouton--succes {
+    background-color: var(--couleur-secondaire);     /* Fond vert */
+    color: var(--couleur-texte-inverse);              /* Texte blanc */
+}
+
+.bouton--succes:hover {
+    background-color: var(--couleur-secondaire-foncee); /* Vert plus foncé */
+    transform: translateY(-2px);
+    box-shadow: var(--ombre-moyenne);
+    text-decoration: none;
+    color: var(--couleur-texte-inverse);
+}
+
+/* --- État focus pour l'accessibilité --- */
+.bouton:focus {
+    outline: 3px solid var(--couleur-principale);     /* Contour visible au focus clavier */
+    outline-offset: 3px;                               /* Espace entre le contour et le bouton */
+}
+
+
+/* ============================================================
+   9. CONTENU PRINCIPAL ET SIDEBAR
+   Mise en page à 2 colonnes avec CSS Grid.
+   ============================================================ */
+
+/* --- Zone principale sous le hero --- */
+.contenu-principal {
+    padding-top: var(--espacement-xxl);    /* Grand espace en haut */
+    padding-bottom: var(--espacement-xxl); /* Grand espace en bas */
+}
+
+/* --- Grille contenu + sidebar --- */
+.grille-contenu {
+    display: grid;                         /* Active CSS Grid */
+    grid-template-columns: 1fr;            /* 1 colonne sur mobile (mobile-first) */
+    gap: var(--espacement-xl);             /* Espacement entre les colonnes */
+    max-width: var(--largeur-max);         /* Largeur maximale */
+    margin: 0 auto;                        /* Centré */
+    padding: 0 var(--espacement-md);       /* Padding latéral */
+}
+
+/* --- Zone de contenu --- */
+.contenu {
+    min-width: 0;                          /* Empêche le débordement dans Grid */
+}
+
+/* --- Barre latérale (sidebar) --- */
+.sidebar {
+    background-color: var(--couleur-fond-blanc); /* Fond blanc */
+    padding: var(--espacement-lg);                /* Padding intérieur */
+    border-radius: var(--rayon-bordure);          /* Coins arrondis */
+    box-shadow: var(--ombre-legere);              /* Légère ombre */
+    height: fit-content;                           /* Hauteur adaptée au contenu */
+}
+
+.sidebar__titre {
+    font-size: 1.2rem;                     /* Taille du titre de la sidebar */
+    margin-bottom: var(--espacement-md);   /* Espace en dessous */
+    padding-bottom: var(--espacement-sm);  /* Espace avant la bordure */
+    border-bottom: 2px solid var(--couleur-principale); /* Ligne sous le titre */
+}
+
+.sidebar__liste {
+    display: flex;                         /* Flexbox */
+    flex-direction: column;                /* Éléments empilés verticalement */
+    gap: var(--espacement-sm);             /* Espace entre les éléments */
+}
+
+.sidebar__lien {
+    padding: var(--espacement-sm);         /* Padding pour agrandir la zone cliquable */
+    border-radius: var(--rayon-bordure-petit); /* Léger arrondi */
+    transition: background-color var(--transition-rapide); /* Transition douce */
+}
+
+.sidebar__lien:hover {
+    background-color: rgba(52, 152, 219, 0.1); /* Fond légèrement bleuté au survol */
+    text-decoration: none;                       /* Pas de soulignement */
+}
+
+
+/* ============================================================
+   10. CARTES
+   Composant réutilisable pour afficher du contenu.
+   Démontre le box model, les ombres et les transitions.
+   ============================================================ */
+
+/* --- Grille de cartes --- */
+.grille-cartes {
+    display: grid;                         /* CSS Grid */
+    grid-template-columns: 1fr;            /* 1 colonne sur mobile */
+    gap: var(--espacement-lg);             /* Espacement entre les cartes */
+}
+
+/* --- Carte individuelle --- */
+.carte {
+    background-color: var(--couleur-fond-blanc); /* Fond blanc */
+    border-radius: var(--rayon-bordure);          /* Coins arrondis de 8px */
+    box-shadow: var(--ombre-legere);              /* Ombre discrète */
+    overflow: hidden;                              /* Cache ce qui dépasse (pour l'image arrondie) */
+    transition: transform var(--transition-normale),
+                box-shadow var(--transition-normale); /* Transition douce */
+}
+
+.carte:hover {
+    transform: translateY(-5px);           /* La carte se soulève au survol */
+    box-shadow: var(--ombre-forte);        /* L'ombre s'intensifie */
+}
+
+/* --- Image de la carte --- */
+.carte__image {
+    width: 100%;                           /* L'image prend toute la largeur de la carte */
+    height: 200px;                         /* Hauteur fixe */
+    object-fit: cover;                     /* L'image couvre la zone sans se déformer */
+}
+
+/* --- Contenu textuel de la carte --- */
+.carte__contenu {
+    padding: var(--espacement-lg);         /* Padding intérieur */
+}
+
+.carte__titre {
+    font-size: 1.25rem;                    /* Taille du titre */
+    margin-bottom: var(--espacement-sm);   /* Espace en dessous */
+}
+
+.carte__texte {
+    color: var(--couleur-texte-clair);     /* Texte gris clair */
+    font-size: 0.95rem;                    /* Légèrement plus petit */
+    margin-bottom: var(--espacement-md);   /* Espace en dessous */
+}
+
+/* --- Badge/Tag sur une carte --- */
+.carte__badge {
+    display: inline-block;                 /* En ligne avec largeur possible */
+    padding: var(--espacement-xs) var(--espacement-sm); /* Petit padding */
+    font-size: 0.8rem;                     /* Petite taille */
+    font-weight: 600;                      /* Semi-gras */
+    color: var(--couleur-principale);      /* Texte bleu */
+    background-color: rgba(52, 152, 219, 0.1); /* Fond bleu très clair */
+    border-radius: var(--rayon-bordure-petit);  /* Léger arrondi */
+    text-transform: uppercase;             /* Tout en majuscules */
+    letter-spacing: 0.5px;                 /* Léger espacement des lettres */
+}
+
+/* --- Carte mise en avant (occupe 2 colonnes) --- */
+.carte--mise-en-avant {
+    grid-column: 1 / -1;                  /* Occupe toute la largeur de la grille */
+}
+
+
+/* ============================================================
+   11. SECTION SERVICES
+   Grille de services avec icônes.
+   ============================================================ */
+
+.section {
+    padding: var(--espacement-xxl) 0;      /* Grand espacement vertical */
+}
+
+.section__titre {
+    text-align: center;                    /* Titre centré */
+    margin-bottom: var(--espacement-xs);   /* Petit espace en dessous */
+}
+
+.section__sous-titre {
+    text-align: center;                    /* Sous-titre centré */
+    color: var(--couleur-texte-clair);     /* Couleur plus douce */
+    margin-bottom: var(--espacement-xxl);  /* Grand espace avant le contenu */
+    max-width: 600px;                       /* Largeur max pour la lisibilité */
+    margin-left: auto;                      /* Centrer le bloc avec margin auto */
+    margin-right: auto;
+}
+
+/* --- Grille des services --- */
+.grille-services {
+    display: grid;                         /* CSS Grid */
+    grid-template-columns: 1fr;            /* 1 colonne sur mobile */
+    gap: var(--espacement-lg);             /* Espacement */
+}
+
+/* --- Carte de service individuelle --- */
+.service {
+    text-align: center;                    /* Contenu centré */
+    padding: var(--espacement-xl);         /* Grand padding */
+    background-color: var(--couleur-fond-blanc); /* Fond blanc */
+    border-radius: var(--rayon-bordure);          /* Coins arrondis */
+    box-shadow: var(--ombre-legere);              /* Ombre discrète */
+    transition: transform var(--transition-normale); /* Transition au survol */
+}
+
+.service:hover {
+    transform: translateY(-3px);           /* Légèrement soulevé au survol */
+}
+
+/* --- Icône du service (avec un pseudo-élément) --- */
+.service__icone {
+    display: inline-flex;                  /* Centrage du contenu */
+    justify-content: center;               /* Centré horizontalement */
+    align-items: center;                   /* Centré verticalement */
+    width: 60px;                           /* Largeur fixe */
+    height: 60px;                          /* Hauteur fixe = carré */
+    border-radius: var(--rayon-bordure-rond); /* Cercle parfait (50%) */
+    background-color: rgba(52, 152, 219, 0.1); /* Fond bleu clair */
+    margin-bottom: var(--espacement-md);   /* Espace en dessous */
+    font-size: 1.5rem;                     /* Grande taille pour l'icône/emoji */
+}
+
+.service__titre {
+    font-size: 1.2rem;                     /* Taille du titre */
+    margin-bottom: var(--espacement-sm);   /* Espace en dessous */
+}
+
+.service__texte {
+    color: var(--couleur-texte-clair);     /* Texte gris */
+    font-size: 0.95rem;                    /* Légèrement plus petit */
+}
+
+
+/* ============================================================
+   12. DÉMONSTRATIONS DU BOX MODEL
+   Exemples visuels pour comprendre margin, padding, border.
+   ============================================================ */
+
+/* --- Boîte avec toutes les couches visibles --- */
+.demo-box-model {
+    width: 300px;                          /* Largeur du contenu */
+    padding: 30px;                         /* Marge interne : 30px de chaque côté */
+    border: 3px dashed var(--couleur-principale); /* Bordure en pointillés bleus */
+    margin: var(--espacement-lg) auto;     /* Marge externe : centrée horizontalement */
+    background-color: rgba(52, 152, 219, 0.1);   /* Fond bleu clair */
+    text-align: center;                    /* Texte centré */
+}
+
+/* --- Exemple : différents types de bordures --- */
+.demo-bordures {
+    display: flex;                         /* Flexbox pour les mettre en ligne */
+    flex-wrap: wrap;                       /* Retour à la ligne si nécessaire */
+    gap: var(--espacement-md);             /* Espacement entre les exemples */
+}
+
+.demo-bordure {
+    padding: var(--espacement-md);         /* Padding interne */
+    width: 150px;                          /* Largeur fixe */
+    text-align: center;                    /* Texte centré */
+    font-size: 0.85rem;                    /* Petite taille */
+}
+
+.demo-bordure--solid {
+    border: 3px solid var(--couleur-principale); /* Bordure pleine */
+}
+
+.demo-bordure--dashed {
+    border: 3px dashed var(--couleur-secondaire); /* Bordure en tirets */
+}
+
+.demo-bordure--dotted {
+    border: 3px dotted var(--couleur-accent); /* Bordure en points */
+}
+
+.demo-bordure--double {
+    border: 4px double var(--couleur-fond-sombre); /* Bordure double */
+}
+
+
+/* ============================================================
+   13. EXEMPLES DE POSITIONNEMENT
+   Démonstrations de static, relative, absolute, fixed, sticky.
+   ============================================================ */
+
+/* --- Conteneur pour les démos de positionnement --- */
+.demo-position {
+    position: relative;                    /* Sert de référence pour les enfants absolus */
+    width: 100%;                           /* Prend toute la largeur */
+    height: 300px;                         /* Hauteur fixe pour la démo */
+    background-color: #eef2f7;            /* Fond gris clair */
+    border: 2px solid #ccc;               /* Bordure grise */
+    border-radius: var(--rayon-bordure);  /* Coins arrondis */
+    overflow: hidden;                      /* Cache les éléments qui débordent */
+    margin-bottom: var(--espacement-lg);  /* Espace en dessous */
+}
+
+/* --- Élément positionné en relatif --- */
+.demo-position__relatif {
+    position: relative;                    /* Position relative */
+    top: 20px;                             /* Décalé de 20px vers le bas */
+    left: 20px;                            /* Décalé de 20px vers la droite */
+    background-color: var(--couleur-principale); /* Fond bleu */
+    color: white;                          /* Texte blanc */
+    padding: var(--espacement-md);         /* Padding */
+    display: inline-block;                 /* En ligne avec dimensions */
+    border-radius: var(--rayon-bordure-petit); /* Petit arrondi */
+}
+
+/* --- Élément positionné en absolu --- */
+.demo-position__absolu {
+    position: absolute;                    /* Retiré du flux, positionné par rapport au parent */
+    bottom: 10px;                          /* 10px du bas du parent */
+    right: 10px;                           /* 10px de la droite du parent */
+    background-color: var(--couleur-accent); /* Fond rouge */
+    color: white;                          /* Texte blanc */
+    padding: var(--espacement-sm) var(--espacement-md); /* Padding */
+    border-radius: var(--rayon-bordure-petit); /* Petit arrondi */
+    font-size: 0.85rem;                    /* Petite taille */
+}
+
+/* --- Élément sticky (se colle au scroll) --- */
+.demo-sticky {
+    position: sticky;                      /* Se colle en haut au défilement */
+    top: var(--hauteur-header);            /* Se colle juste sous le header fixe */
+    background-color: var(--couleur-fond-blanc); /* Fond blanc */
+    padding: var(--espacement-md);         /* Padding */
+    box-shadow: var(--ombre-legere);       /* Ombre pour montrer qu'il est "collé" */
+    z-index: 100;                          /* Au-dessus du contenu */
+    font-weight: 600;                      /* Semi-gras */
+}
+
+
+/* ============================================================
+   14. FORMULAIRE
+   Styles pour les champs de saisie avec :focus et :hover.
+   ============================================================ */
+
+.formulaire {
+    display: flex;                         /* Flexbox */
+    flex-direction: column;                /* Champs empilés verticalement */
+    gap: var(--espacement-md);             /* Espacement entre les champs */
+    max-width: 500px;                       /* Largeur maximale */
+}
+
+.formulaire__groupe {
+    display: flex;                         /* Flexbox */
+    flex-direction: column;                /* Label au-dessus de l'input */
+    gap: var(--espacement-xs);             /* Petit espace entre label et input */
+}
+
+.formulaire__label {
+    font-weight: 600;                      /* Semi-gras */
+    font-size: 0.95rem;                    /* Légèrement réduit */
+    color: var(--couleur-texte);           /* Couleur du texte */
+}
+
+.formulaire__champ {
+    padding: var(--espacement-sm) var(--espacement-md); /* Padding intérieur */
+    border: 2px solid #ddd;                /* Bordure grise claire */
+    border-radius: var(--rayon-bordure-petit); /* Petit arrondi */
+    font-size: 1rem;                       /* Taille normale */
+    font-family: inherit;                  /* Hérite de la police du body */
+    transition: border-color var(--transition-rapide),
+                box-shadow var(--transition-rapide); /* Transition douce */
+}
+
+.formulaire__champ:hover {
+    border-color: #bbb;                    /* Bordure un peu plus foncée au survol */
+}
+
+.formulaire__champ:focus {
+    outline: none;                         /* Supprime le contour par défaut */
+    border-color: var(--couleur-principale); /* Bordure bleue au focus */
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2); /* Halo bleu autour du champ */
+}
+
+/* --- Style pour un champ invalide --- */
+.formulaire__champ:invalid:not(:focus):not(:placeholder-shown) {
+    border-color: var(--couleur-accent);   /* Bordure rouge si invalide */
+}
+
+
+/* ============================================================
+   15. PIED DE PAGE (FOOTER)
+   Footer avec 3 colonnes en Flexbox.
+   ============================================================ */
+
+.footer {
+    background-color: var(--couleur-fond-sombre); /* Fond sombre */
+    color: var(--couleur-texte-inverse);           /* Texte blanc */
+    padding: var(--espacement-xxl) 0;              /* Grand padding vertical */
+    margin-top: auto;                               /* Pousse le footer en bas de la page */
+}
+
+/* --- Grille du footer (3 colonnes) --- */
+.footer__grille {
+    display: flex;                         /* Flexbox */
+    flex-direction: column;                /* En colonne sur mobile (mobile-first) */
+    gap: var(--espacement-xl);             /* Espacement entre les colonnes */
+}
+
+/* --- Colonne du footer --- */
+.footer__colonne {
+    flex: 1;                               /* Chaque colonne prend la même largeur */
+}
+
+.footer__titre {
+    font-size: 1.1rem;                     /* Taille du titre */
+    margin-bottom: var(--espacement-md);   /* Espace en dessous */
+    color: var(--couleur-texte-inverse);   /* Texte blanc */
+    text-transform: uppercase;             /* En majuscules */
+    letter-spacing: 1px;                   /* Espacement des lettres */
+}
+
+.footer__liste {
+    display: flex;                         /* Flexbox */
+    flex-direction: column;                /* En colonne */
+    gap: var(--espacement-sm);             /* Espacement entre les liens */
+}
+
+.footer__lien {
+    color: rgba(255, 255, 255, 0.7);      /* Blanc semi-transparent */
+    transition: color var(--transition-rapide); /* Transition douce */
+}
+
+.footer__lien:hover {
+    color: var(--couleur-principale);      /* Bleu au survol */
+    text-decoration: none;                 /* Pas de soulignement */
+}
+
+/* --- Bas du footer (copyright) --- */
+.footer__bas {
+    text-align: center;                    /* Centré */
+    padding-top: var(--espacement-xl);     /* Espace au-dessus */
+    margin-top: var(--espacement-xl);      /* Marge au-dessus */
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Ligne de séparation discrète */
+    font-size: 0.9rem;                     /* Petite taille */
+    color: rgba(255, 255, 255, 0.5);      /* Blanc très transparent */
+}
+
+
+/* ============================================================
+   16. TRANSITIONS ET ANIMATIONS
+   Définitions des @keyframes et classes utilitaires.
+   ============================================================ */
+
+/* --- Animation d'apparition du titre (du bas vers le haut avec fondu) --- */
+@keyframes apparitionTitre {
+    from {
+        opacity: 0;                        /* Invisible au début */
+        transform: translateY(30px);       /* Décalé de 30px vers le bas */
+    }
+    to {
+        opacity: 1;                        /* Visible à la fin */
+        transform: translateY(0);          /* En position normale */
+    }
+}
+
+/* --- Animation de fondu entrant --- */
+@keyframes fonduEntrant {
+    from {
+        opacity: 0;                        /* Invisible */
+    }
+    to {
+        opacity: 1;                        /* Visible */
+    }
+}
+
+/* --- Animation de glissement depuis la gauche --- */
+@keyframes glissementGauche {
+    from {
+        opacity: 0;                        /* Invisible */
+        transform: translateX(-50px);      /* Décalé vers la gauche */
+    }
+    to {
+        opacity: 1;                        /* Visible */
+        transform: translateX(0);          /* Position normale */
+    }
+}
+
+/* --- Animation de pulsation (pour attirer l'attention) --- */
+@keyframes pulsation {
+    0% {
+        transform: scale(1);              /* Taille normale */
+    }
+    50% {
+        transform: scale(1.05);           /* Légèrement agrandi */
+    }
+    100% {
+        transform: scale(1);              /* Retour à la taille normale */
+    }
+}
+
+/* --- Animation de rotation continue (ex: loader) --- */
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);          /* Début : 0 degré */
+    }
+    to {
+        transform: rotate(360deg);        /* Fin : 360 degrés (tour complet) */
+    }
+}
+
+/* --- Classes utilitaires pour appliquer les animations --- */
+.animer-fondu {
+    animation: fonduEntrant var(--transition-lente) ease forwards;
+}
+
+.animer-glissement {
+    animation: glissementGauche var(--transition-lente) ease forwards;
+}
+
+.animer-pulsation {
+    animation: pulsation 2s ease-in-out infinite; /* Boucle infinie */
+}
+
+.animer-rotation {
+    animation: rotation 1s linear infinite;        /* Rotation continue */
+}
+
+
+/* ============================================================
+   17. CLASSES UTILITAIRES
+   Petites classes réutilisables pour des ajustements rapides.
+   ============================================================ */
+
+/* --- Alignement du texte --- */
+.texte-centre { text-align: center; }            /* Centré */
+.texte-gauche { text-align: left; }              /* À gauche */
+.texte-droite { text-align: right; }             /* À droite */
+
+/* --- Poids du texte --- */
+.texte-gras { font-weight: 700; }                /* Gras */
+.texte-leger { font-weight: 300; }               /* Léger */
+
+/* --- Transformation du texte --- */
+.texte-majuscules { text-transform: uppercase; }  /* MAJUSCULES */
+.texte-minuscules { text-transform: lowercase; }  /* minuscules */
+.texte-capitalize { text-transform: capitalize; }  /* Première Lettre Majuscule */
+
+/* --- Marges utilitaires --- */
+.mb-0 { margin-bottom: 0; }
+.mb-sm { margin-bottom: var(--espacement-sm); }
+.mb-md { margin-bottom: var(--espacement-md); }
+.mb-lg { margin-bottom: var(--espacement-lg); }
+.mb-xl { margin-bottom: var(--espacement-xl); }
+
+.mt-0 { margin-top: 0; }
+.mt-sm { margin-top: var(--espacement-sm); }
+.mt-md { margin-top: var(--espacement-md); }
+.mt-lg { margin-top: var(--espacement-lg); }
+.mt-xl { margin-top: var(--espacement-xl); }
+
+/* --- Padding utilitaires --- */
+.p-sm { padding: var(--espacement-sm); }
+.p-md { padding: var(--espacement-md); }
+.p-lg { padding: var(--espacement-lg); }
+.p-xl { padding: var(--espacement-xl); }
+
+/* --- Display utilitaires --- */
+.d-none { display: none; }                /* Caché complètement */
+.d-block { display: block; }              /* En bloc */
+.d-inline { display: inline; }            /* En ligne */
+.d-inline-block { display: inline-block; } /* En ligne avec dimensions */
+.d-flex { display: flex; }                /* Flexbox */
+.d-grid { display: grid; }               /* Grid */
+
+/* --- Flexbox utilitaires --- */
+.flex-centre {
+    display: flex;
+    justify-content: center;              /* Centré horizontalement */
+    align-items: center;                   /* Centré verticalement */
+}
+
+.flex-entre {
+    display: flex;
+    justify-content: space-between;        /* Espace entre les éléments */
+    align-items: center;                    /* Centré verticalement */
+}
+
+/* --- Largeur --- */
+.w-100 { width: 100%; }                   /* Pleine largeur */
+.w-auto { width: auto; }                  /* Largeur automatique */
+
+/* --- Ombre au survol --- */
+.survol-ombre {
+    transition: box-shadow var(--transition-normale);
+}
+
+.survol-ombre:hover {
+    box-shadow: var(--ombre-moyenne);      /* Ombre au survol */
+}
+
+
+/* ============================================================
+   18. RESPONSIVE DESIGN - MEDIA QUERIES
+   Approche mobile-first : on écrit d'abord pour mobile,
+   puis on adapte pour les écrans plus grands.
+   Les styles de base (ci-dessus) sont pour mobile.
+   ============================================================ */
+
+/* === TABLETTE (768px et plus) === */
+@media (min-width: 768px) {
+
+    /* Les titres deviennent plus grands sur tablette */
+    h1 {
+        font-size: 2.8rem;                /* Plus grand que sur mobile */
+    }
+
+    h2 {
+        font-size: 2.2rem;
+    }
+
+    /* La grille de contenu passe à 2 colonnes */
+    .grille-contenu {
+        grid-template-columns: 1fr var(--largeur-sidebar);
+            /* Colonne principale flexible + sidebar fixe */
+    }
+
+    /* Les cartes passent à 2 colonnes */
+    .grille-cartes {
+        grid-template-columns: repeat(2, 1fr); /* 2 colonnes égales */
+    }
+
+    /* Les services passent à 2 colonnes */
+    .grille-services {
+        grid-template-columns: repeat(2, 1fr); /* 2 colonnes */
+    }
+
+    /* Le footer passe en ligne (3 colonnes) */
+    .footer__grille {
+        flex-direction: row;               /* En ligne au lieu de colonne */
+    }
+
+    /* Le titre du hero grandit */
+    .hero__titre {
+        font-size: 3.5rem;                /* Plus grand sur tablette */
+    }
+}
+
+
+/* === ORDINATEUR (1024px et plus) === */
+@media (min-width: 1024px) {
+
+    /* Les cartes passent à 3 colonnes */
+    .grille-cartes {
+        grid-template-columns: repeat(3, 1fr); /* 3 colonnes égales */
+    }
+
+    /* Les services passent à 3 colonnes */
+    .grille-services {
+        grid-template-columns: repeat(3, 1fr); /* 3 colonnes */
+    }
+
+    /* Le titre du hero encore plus grand */
+    .hero__titre {
+        font-size: 4rem;                  /* Grand titre sur ordinateur */
+    }
+
+    .hero__sous-titre {
+        font-size: 1.4rem;                /* Sous-titre plus grand */
+    }
+}
+
+
+/* === GRAND ÉCRAN (1200px et plus) === */
+@media (min-width: 1200px) {
+
+    /* On peut ajouter des styles spécifiques aux très grands écrans */
+    .conteneur {
+        padding: 0 var(--espacement-xl);   /* Plus de padding latéral */
+    }
+}
+
+
+/* === PETIT ÉCRAN / MOBILE (moins de 576px) === */
+@media (max-width: 576px) {
+
+    /* La navigation passe en colonne sur très petit écran */
+    .nav {
+        flex-direction: column;            /* Les liens s'empilent */
+        gap: var(--espacement-xs);         /* Moins d'espace */
+    }
+
+    /* Le header devient plus haut pour accueillir la nav verticale */
+    .header .conteneur {
+        flex-direction: column;            /* Logo au-dessus de la nav */
+        padding: var(--espacement-sm) var(--espacement-md);
+    }
+
+    /* Le titre du hero est réduit */
+    .hero__titre {
+        font-size: 2rem;                  /* Plus petit sur téléphone */
+    }
+
+    .hero__sous-titre {
+        font-size: 1rem;                  /* Réduit */
+    }
+
+    /* Les boutons prennent toute la largeur */
+    .bouton {
+        display: block;                    /* En bloc = pleine largeur */
+        width: 100%;                       /* 100% de la largeur */
+    }
+
+    /* Le padding de la carte est réduit */
+    .carte__contenu {
+        padding: var(--espacement-md);     /* Moins de padding */
+    }
+}
+
+
+/* === PRÉFÉRENCE : MODE SOMBRE DU SYSTÈME === */
+/* Si l'utilisateur a activé le mode sombre dans son système */
+@media (prefers-color-scheme: dark) {
+
+    :root {
+        --couleur-texte: #e0e0e0;                /* Texte clair */
+        --couleur-texte-clair: #b0b0b0;          /* Texte secondaire clair */
+        --couleur-fond: #1a1a2e;                  /* Fond très sombre */
+        --couleur-fond-blanc: #16213e;           /* "Blanc" = bleu très foncé */
+        --couleur-fond-sombre: #0f3460;          /* Fond sombre ajusté */
+    }
+
+    /* Ajustement de l'ombre pour le mode sombre */
+    .carte,
+    .sidebar,
+    .service {
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Ombre plus prononcée */
+    }
+}
+
+
+/* === PRÉFÉRENCE : RÉDUCTION DES ANIMATIONS === */
+/* Si l'utilisateur préfère moins d'animations (accessibilité) */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;    /* Désactive les animations */
+        animation-iteration-count: 1 !important;  /* Une seule itération */
+        transition-duration: 0.01ms !important;    /* Désactive les transitions */
+        scroll-behavior: auto !important;          /* Pas de scroll fluide */
+    }
+}
+
+
+/* ============================================================
+   FIN DU FICHIER
+   Ce fichier couvre : reset, variables CSS, typographie,
+   box model, positionnement, flexbox, grid, transitions,
+   animations, responsive design et accessibilité.
+   ============================================================ */

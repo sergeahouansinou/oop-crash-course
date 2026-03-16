@@ -1,0 +1,708 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <!--
+        =============================================
+        META DONNEES ET CONFIGURATION DE LA PAGE
+        =============================================
+        Le <head> contient des informations sur la page
+        qui ne s'affichent pas directement a l'ecran.
+    -->
+
+    <!-- Encodage UTF-8 : permet d'afficher les accents et caracteres speciaux -->
+    <meta charset="UTF-8" />
+
+    <!-- Viewport : rend la page adaptee aux telephones et tablettes -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Titre de la page : apparait dans l'onglet du navigateur -->
+    <title>Portfolio de Marie Dupont - Developpeuse Web</title>
+
+    <!-- Description pour les moteurs de recherche (SEO) -->
+    <meta
+      name="description"
+      content="Portfolio personnel de Marie Dupont, developpeuse web junior."
+    />
+
+    <!--
+        Style CSS integre pour rendre la page presentable.
+        En pratique, on mettrait ce CSS dans un fichier separe (style.css),
+        mais ici on le garde dans la page pour simplifier l'exemple.
+    -->
+    <style>
+      /* Police de base et couleurs */
+      body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        line-height: 1.7;
+        margin: 0;
+        padding: 0;
+        color: #333;
+        background-color: #f5f5f5;
+      }
+
+      /* En-tete du site */
+      header {
+        background-color: #2c3e50;
+        color: white;
+        text-align: center;
+        padding: 40px 20px;
+      }
+      header h1 {
+        margin: 0;
+        font-size: 2.5em;
+      }
+      header p {
+        font-size: 1.2em;
+        opacity: 0.9;
+      }
+
+      /* Navigation */
+      nav {
+        background-color: #34495e;
+        padding: 10px 0;
+        text-align: center;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      nav a {
+        color: white;
+        text-decoration: none;
+        margin: 0 15px;
+        padding: 8px 15px;
+        border-radius: 4px;
+      }
+      nav a:hover {
+        background-color: #2c3e50;
+      }
+
+      /* Contenu principal */
+      main {
+        max-width: 900px;
+        margin: 30px auto;
+        padding: 0 20px;
+      }
+
+      /* Sections */
+      section {
+        background: white;
+        margin-bottom: 30px;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      section h2 {
+        color: #2c3e50;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 10px;
+      }
+
+      /* Tableaux */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 15px 0;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+      }
+      th {
+        background-color: #3498db;
+        color: white;
+      }
+      tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+
+      /* Articles (projets) */
+      article {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 15px 0;
+      }
+      article h3 {
+        color: #2c3e50;
+        margin-top: 0;
+      }
+      article img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 4px;
+      }
+
+      /* Formulaire */
+      form label {
+        display: block;
+        margin-top: 15px;
+        font-weight: bold;
+      }
+      form input,
+      form textarea,
+      form select {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 1em;
+      }
+      form button {
+        margin-top: 20px;
+        padding: 12px 30px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1em;
+        margin-right: 10px;
+      }
+      form button[type="submit"] {
+        background-color: #3498db;
+        color: white;
+      }
+      form button[type="reset"] {
+        background-color: #e74c3c;
+        color: white;
+      }
+      form button:hover {
+        opacity: 0.9;
+      }
+      fieldset {
+        border: 2px solid #3498db;
+        border-radius: 8px;
+        padding: 20px;
+      }
+      legend {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #2c3e50;
+        padding: 0 10px;
+      }
+
+      /* Aside (barre laterale / encadre) */
+      aside {
+        background-color: #eaf6ff;
+        border-left: 4px solid #3498db;
+        padding: 20px;
+        margin: 30px 0;
+        border-radius: 0 8px 8px 0;
+      }
+
+      /* Pied de page */
+      footer {
+        background-color: #2c3e50;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        margin-top: 30px;
+      }
+      footer a {
+        color: #3498db;
+      }
+
+      /* Listes dans la navigation et general */
+      ul {
+        padding-left: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!--
+        =============================================
+        HEADER : EN-TETE DU SITE
+        =============================================
+        La balise <header> represente l'en-tete de la page.
+        On y met generalement le titre du site, un logo et/ou un slogan.
+    -->
+    <header>
+      <!-- <h1> : titre principal de la page (un seul par page) -->
+      <h1>Marie Dupont</h1>
+
+      <!-- <p> : paragraphe pour le sous-titre / slogan -->
+      <p>Developpeuse Web Junior | Passionnee de code et de design</p>
+    </header>
+
+    <!--
+        =============================================
+        NAV : MENU DE NAVIGATION
+        =============================================
+        La balise <nav> contient les liens de navigation du site.
+        Ici, on utilise des liens d'ancrage (#id) qui pointent vers
+        des sections de la meme page.
+    -->
+    <nav>
+      <!-- Chaque lien pointe vers une section identifiee par son attribut id -->
+      <a href="#a-propos">A propos</a>
+      <a href="#competences">Competences</a>
+      <a href="#projets">Projets</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <!--
+        =============================================
+        MAIN : CONTENU PRINCIPAL
+        =============================================
+        La balise <main> enveloppe le contenu principal de la page.
+        Il ne doit y avoir qu'un seul <main> par page.
+    -->
+    <main>
+      <!--
+            =============================================
+            SECTION 1 : A PROPOS
+            =============================================
+            La balise <section> regroupe du contenu par theme.
+            L'attribut id="a-propos" permet d'y naviguer via le lien #a-propos.
+        -->
+      <section id="a-propos">
+        <!-- <h2> : titre de la section (niveau 2, sous le h1) -->
+        <h2>A propos de moi</h2>
+
+        <!-- <p> : paragraphes de presentation -->
+        <p>
+          Bonjour ! Je m'appelle <strong>Marie Dupont</strong> et je suis
+          developpeuse web junior basee a <em>Lyon, France</em>. Apres une
+          formation intensive en developpement web, je me passionne pour la
+          creation de sites modernes, accessibles et bien structures.
+        </p>
+
+        <p>
+          En dehors du code, j'aime la photographie, la randonnee en montagne et
+          la lecture de romans de science-fiction. Je crois fermement que la
+          technologie doit etre au service de tous, c'est pourquoi l'<strong
+            >accessibilite web</strong
+          >
+          me tient particulierement a coeur.
+        </p>
+
+        <!--
+                Image avec attributs importants :
+                - src : chemin vers l'image (ici une image placeholder)
+                - alt : texte alternatif OBLIGATOIRE pour l'accessibilite
+                - width : largeur en pixels
+            -->
+        <img
+          src="https://picsum.photos/400/250"
+          alt="Photo de Marie Dupont devant son ordinateur"
+          width="400"
+        />
+      </section>
+
+      <!--
+            =============================================
+            SECTION 2 : COMPETENCES (avec un tableau)
+            =============================================
+            Les tableaux servent a presenter des donnees structurees.
+        -->
+      <section id="competences">
+        <h2>Mes competences</h2>
+
+        <p>Voici un apercu de mes competences techniques :</p>
+
+        <!--
+                Structure d'un tableau :
+                - <table> : le tableau entier
+                - <thead> : l'en-tete (titres des colonnes)
+                - <tbody> : le corps (les donnees)
+                - <tr> : une ligne (Table Row)
+                - <th> : une cellule d'en-tete (Table Header)
+                - <td> : une cellule de donnees (Table Data)
+            -->
+        <table>
+          <thead>
+            <tr>
+              <th>Technologie</th>
+              <th>Niveau</th>
+              <th>Experience</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>HTML5</td>
+              <td>Avance</td>
+              <td>2 ans</td>
+            </tr>
+            <tr>
+              <td>CSS3</td>
+              <td>Intermediaire</td>
+              <td>2 ans</td>
+            </tr>
+            <tr>
+              <td>JavaScript</td>
+              <td>Intermediaire</td>
+              <td>1 an</td>
+            </tr>
+            <tr>
+              <td>PHP</td>
+              <td>Debutant</td>
+              <td>6 mois</td>
+            </tr>
+            <tr>
+              <td>MySQL</td>
+              <td>Debutant</td>
+              <td>6 mois</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Liste non ordonnee : competences complementaires -->
+        <h3>Competences complementaires</h3>
+        <ul>
+          <li>Git et GitHub (gestion de versions)</li>
+          <li>Responsive Design (sites adaptes aux mobiles)</li>
+          <li>Accessibilite web (WCAG)</li>
+          <li>Methode Agile / Scrum</li>
+        </ul>
+      </section>
+
+      <!--
+            =============================================
+            SECTION 3 : PROJETS (avec des articles)
+            =============================================
+            Chaque projet est un <article> car c'est un contenu autonome.
+        -->
+      <section id="projets">
+        <h2>Mes projets</h2>
+
+        <!-- Premier projet -->
+        <article>
+          <h3>Site Vitrine - Boulangerie "Au Bon Pain"</h3>
+
+          <!-- Image du projet avec texte alternatif descriptif -->
+          <img
+            src="https://picsum.photos/800/300?random=1"
+            alt="Capture d'ecran du site web de la boulangerie Au Bon Pain"
+          />
+
+          <p>
+            Realisation d'un site vitrine complet pour une boulangerie
+            artisanale. Le site presente les produits, les horaires d'ouverture
+            et permet de localiser le commerce.
+          </p>
+
+          <!-- Liste ordonnee : technologies utilisees (l'ordre compte) -->
+          <p><strong>Technologies utilisees :</strong></p>
+          <ol>
+            <li>HTML5 pour la structure</li>
+            <li>CSS3 avec Flexbox pour la mise en page</li>
+            <li>JavaScript pour le carrousel d'images</li>
+          </ol>
+
+          <!-- Lien vers le projet avec target="_blank" pour ouvrir dans un nouvel onglet -->
+          <a href="https://example.com/boulangerie" target="_blank">
+            Voir le projet en ligne
+          </a>
+        </article>
+
+        <!-- Deuxieme projet -->
+        <article>
+          <h3>Application To-Do List</h3>
+
+          <img
+            src="https://picsum.photos/800/300?random=2"
+            alt="Capture d'ecran de l'application de gestion de taches"
+          />
+
+          <p>
+            Application web de gestion de taches permettant d'ajouter, modifier
+            et supprimer des taches. Les donnees sont sauvegardees dans le
+            navigateur grace au <em>localStorage</em>.
+          </p>
+
+          <p><strong>Technologies utilisees :</strong></p>
+          <ol>
+            <li>HTML5 semantique</li>
+            <li>CSS3 avec animations</li>
+            <li>JavaScript (DOM, localStorage)</li>
+          </ol>
+
+          <a href="https://example.com/todo" target="_blank">
+            Voir le projet en ligne
+          </a>
+        </article>
+
+        <!-- Troisieme projet -->
+        <article>
+          <h3>Blog personnel</h3>
+
+          <img
+            src="https://picsum.photos/800/300?random=3"
+            alt="Capture d'ecran du blog personnel de Marie"
+          />
+
+          <p>
+            Un blog ou je partage mes apprentissages en developpement web, mes
+            astuces et mes retours d'experience. Construit avec PHP et MySQL
+            pour la gestion dynamique des articles.
+          </p>
+
+          <p><strong>Technologies utilisees :</strong></p>
+          <ol>
+            <li>HTML5 et CSS3</li>
+            <li>PHP pour le back-end</li>
+            <li>MySQL pour la base de donnees</li>
+          </ol>
+
+          <a href="https://example.com/blog" target="_blank">
+            Voir le projet en ligne
+          </a>
+        </article>
+      </section>
+
+      <!--
+            =============================================
+            SECTION 4 : EXPERIENCE (avec un tableau avance)
+            =============================================
+            Demonstration de colspan pour fusionner des cellules.
+        -->
+      <section id="experience">
+        <h2>Mon parcours</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Periode</th>
+              <th>Poste / Formation</th>
+              <th>Lieu</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <!-- colspan="3" : cette cellule s'etend sur 3 colonnes -->
+              <td colspan="3"><strong>Experiences professionnelles</strong></td>
+            </tr>
+            <tr>
+              <td>2025 - Present</td>
+              <td>Developpeuse Web Junior</td>
+              <td>Agence WebCrea, Lyon</td>
+            </tr>
+            <tr>
+              <td>2024 - 2025</td>
+              <td>Stage developpement web</td>
+              <td>StartupTech, Paris</td>
+            </tr>
+            <tr>
+              <td colspan="3"><strong>Formations</strong></td>
+            </tr>
+            <tr>
+              <td>2023 - 2024</td>
+              <td>Formation Developpeur Web</td>
+              <td>OpenClassrooms</td>
+            </tr>
+            <tr>
+              <td>2020 - 2023</td>
+              <td>Licence Informatique</td>
+              <td>Universite Lyon 1</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!--
+            =============================================
+            ASIDE : CONTENU COMPLEMENTAIRE
+            =============================================
+            <aside> contient du contenu secondaire, complementaire au contenu principal.
+            Par exemple : une citation, un fait amusant, des informations bonus.
+        -->
+      <aside>
+        <h3>Citation inspirante</h3>
+        <p>
+          <em
+            >"Tout le monde devrait apprendre a programmer un ordinateur, parce
+            que ca vous apprend a penser."</em
+          >
+          — <strong>Steve Jobs</strong>
+        </p>
+        <p>
+          <small>
+            Le saviez-vous ? Le premier site web a ete cree en 1991 par Tim
+            Berners-Lee au CERN, en Suisse. Il est toujours accessible a
+            l'adresse
+            <a href="http://info.cern.ch" target="_blank">info.cern.ch</a>.
+          </small>
+        </p>
+      </aside>
+
+      <!--
+            =============================================
+            SECTION 5 : FORMULAIRE DE CONTACT
+            =============================================
+            Demonstration d'un formulaire complet avec differents types de champs.
+        -->
+      <section id="contact">
+        <h2>Me contacter</h2>
+
+        <p>
+          Vous avez un projet ou une question ? N'hesitez pas a me contacter en
+          remplissant le formulaire ci-dessous.
+        </p>
+
+        <!--
+                Formulaire :
+                - action : l'URL ou envoyer les donnees (ici fictive)
+                - method="POST" : methode d'envoi securisee pour les donnees
+            -->
+        <form action="/traitement-contact.php" method="POST">
+          <!--
+                    <fieldset> : regroupe visuellement des champs lies
+                    <legend> : titre du groupe de champs
+                -->
+          <fieldset>
+            <legend>Vos informations</legend>
+
+            <!--
+                        Champ texte :
+                        - <label for="nom"> est lie a <input id="nom">
+                          grace a l'attribut for/id. Cliquer sur le label
+                          active le champ.
+                        - required : le champ est obligatoire
+                        - placeholder : texte d'exemple en gris
+                    -->
+            <label for="nom">Nom complet :</label>
+            <input
+              type="text"
+              id="nom"
+              name="nom"
+              placeholder="Ex : Jean Martin"
+              required
+            />
+
+            <!-- Champ email : le navigateur verifie automatiquement le format -->
+            <label for="email">Adresse email :</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Ex : jean.martin@exemple.fr"
+              required
+            />
+
+            <!-- Champ telephone -->
+            <label for="telephone">Telephone (optionnel) :</label>
+            <input
+              type="tel"
+              id="telephone"
+              name="telephone"
+              placeholder="Ex : 06 12 34 56 78"
+            />
+          </fieldset>
+
+          <fieldset>
+            <legend>Votre message</legend>
+
+            <!--
+                        Liste deroulante (<select>) :
+                        Chaque <option> est un choix possible.
+                        L'attribut value est la valeur envoyee au serveur.
+                    -->
+            <label for="sujet">Sujet :</label>
+            <select id="sujet" name="sujet" required>
+              <option value="">-- Choisissez un sujet --</option>
+              <option value="projet">Proposition de projet</option>
+              <option value="emploi">Offre d'emploi</option>
+              <option value="collaboration">Collaboration</option>
+              <option value="question">Question generale</option>
+              <option value="autre">Autre</option>
+            </select>
+
+            <!--
+                        Boutons radio : un seul choix possible dans le groupe.
+                        Tous les radio du meme groupe partagent le meme attribut name.
+                    -->
+            <label>Budget estime :</label>
+            <div>
+              <input type="radio" id="budget1" name="budget" value="petit" />
+              <label for="budget1">Moins de 1 000 EUR</label>
+            </div>
+            <div>
+              <input type="radio" id="budget2" name="budget" value="moyen" />
+              <label for="budget2">1 000 EUR - 5 000 EUR</label>
+            </div>
+            <div>
+              <input type="radio" id="budget3" name="budget" value="grand" />
+              <label for="budget3">Plus de 5 000 EUR</label>
+            </div>
+
+            <!--
+                        Zone de texte multiligne (<textarea>) :
+                        - rows : nombre de lignes visibles
+                        - Le contenu par defaut se met entre les balises
+                          (ici on laisse vide avec juste un placeholder)
+                    -->
+            <label for="message">Votre message :</label>
+            <textarea
+              id="message"
+              name="message"
+              rows="6"
+              placeholder="Decrivez votre projet ou posez votre question..."
+              required
+            ></textarea>
+
+            <!--
+                        Case a cocher (checkbox) :
+                        L'utilisateur peut cocher ou decocher.
+                        required : oblige a cocher avant d'envoyer.
+                    -->
+            <div style="margin-top: 15px">
+              <input type="checkbox" id="rgpd" name="rgpd" required />
+              <label for="rgpd">
+                J'accepte que mes donnees soient utilisees pour repondre a ma
+                demande.
+              </label>
+            </div>
+          </fieldset>
+
+          <!--
+                    Boutons du formulaire :
+                    - type="submit" : envoie le formulaire
+                    - type="reset" : remet tous les champs a zero
+                -->
+          <div style="margin-top: 20px">
+            <button type="submit">Envoyer le message</button>
+            <button type="reset">Effacer le formulaire</button>
+          </div>
+        </form>
+      </section>
+    </main>
+    <!-- Fin du contenu principal -->
+
+    <!--
+        =============================================
+        FOOTER : PIED DE PAGE
+        =============================================
+        La balise <footer> contient les informations de fin de page :
+        copyright, liens legaux, liens vers les reseaux sociaux, etc.
+    -->
+    <footer>
+      <!-- Le caractere special &copy; affiche le symbole (c) -->
+      <p>&copy; 2026 Marie Dupont. Tous droits reserves.</p>
+
+      <!-- Liens vers les reseaux sociaux (fictifs) -->
+      <p>
+        <a href="https://github.com/mariedupont" target="_blank">GitHub</a> |
+        <a href="https://linkedin.com/in/mariedupont" target="_blank"
+          >LinkedIn</a
+        >
+        |
+        <a href="mailto:marie.dupont@exemple.fr">Email</a>
+      </p>
+
+      <!--
+            <small> : texte de petite taille, souvent utilise
+            pour les mentions legales ou les notes.
+        -->
+      <p>
+        <small>
+          Ce site a ete realise avec du HTML pur dans le cadre d'un cours pour
+          debutants.
+        </small>
+      </p>
+    </footer>
+  </body>
+</html>

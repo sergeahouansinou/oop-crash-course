@@ -1,0 +1,583 @@
+/* ============================================================
+   FEUILLE DE STYLE - FORMULAIRE DE CONTACT
+   ============================================================
+   Ce fichier CSS gere la mise en forme du formulaire :
+   - Variables CSS pour les couleurs
+   - Mise en page responsive (mobile-first)
+   - Styles des champs, labels, boutons
+   - Etats : focus, erreur, succes
+   - Indicateur de force du mot de passe
+   ============================================================ */
+
+
+/* ============================================================
+   VARIABLES CSS (PROPRIETES PERSONNALISEES)
+   Definies sur :root pour etre accessibles partout
+   ============================================================ */
+:root {
+    /* --- Couleurs principales --- */
+    --couleur-primaire: #2563eb;          /* Bleu principal */
+    --couleur-primaire-foncee: #1d4ed8;   /* Bleu fonce (hover) */
+    --couleur-primaire-claire: #dbeafe;   /* Bleu clair (fond) */
+
+    /* --- Couleurs d'etat --- */
+    --couleur-erreur: #dc2626;            /* Rouge pour les erreurs */
+    --couleur-erreur-fond: #fef2f2;       /* Fond rouge clair */
+    --couleur-succes: #16a34a;            /* Vert pour le succes */
+    --couleur-succes-fond: #f0fdf4;       /* Fond vert clair */
+    --couleur-avertissement: #f59e0b;     /* Orange pour les avertissements */
+
+    /* --- Couleurs neutres --- */
+    --couleur-texte: #1f2937;             /* Texte principal (gris fonce) */
+    --couleur-texte-clair: #6b7280;       /* Texte secondaire (gris) */
+    --couleur-fond: #f9fafb;              /* Fond de page */
+    --couleur-blanc: #ffffff;             /* Blanc */
+    --couleur-bordure: #d1d5db;           /* Bordure des champs */
+    --couleur-bordure-focus: #2563eb;     /* Bordure au focus */
+
+    /* --- Typographie --- */
+    --police-principale: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --taille-base: 16px;
+
+    /* --- Espacements --- */
+    --espacement-petit: 0.5rem;
+    --espacement-moyen: 1rem;
+    --espacement-grand: 1.5rem;
+    --espacement-tres-grand: 2rem;
+
+    /* --- Bordures et ombres --- */
+    --rayon-bordure: 8px;
+    --ombre-carte: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+                   0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --ombre-focus: 0 0 0 3px rgba(37, 99, 235, 0.2);
+
+    /* --- Transitions --- */
+    --transition-rapide: 0.2s ease;
+    --transition-normale: 0.3s ease;
+}
+
+
+/* ============================================================
+   RESET ET STYLES DE BASE
+   Normalisation des elements par defaut du navigateur
+   ============================================================ */
+
+/* Reset universel : box-sizing border-box pour tous les elements */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Corps de la page */
+body {
+    font-family: var(--police-principale);
+    font-size: var(--taille-base);
+    line-height: 1.6;
+    color: var(--couleur-texte);
+    background-color: var(--couleur-fond);
+
+    /* Hauteur minimale de la page = hauteur de la fenetre */
+    min-height: 100vh;
+
+    /* Flexbox pour coller le footer en bas */
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* ============================================================
+   EN-TETE DU SITE
+   ============================================================ */
+.site-header {
+    background-color: var(--couleur-primaire);
+    color: var(--couleur-blanc);
+    text-align: center;
+    padding: var(--espacement-tres-grand) var(--espacement-moyen);
+}
+
+/* Titre principal */
+.site-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: var(--espacement-petit);
+}
+
+/* Sous-titre / description */
+.site-header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+/* Asterisque rouge pour les champs requis */
+.requis {
+    color: #fca5a5;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+
+/* ============================================================
+   CONTENU PRINCIPAL
+   ============================================================ */
+.site-main {
+    /* Le main prend tout l'espace disponible (footer en bas) */
+    flex: 1;
+    padding: var(--espacement-tres-grand) var(--espacement-moyen);
+    width: 100%;
+    max-width: 700px;           /* Largeur max du formulaire */
+    margin: 0 auto;             /* Centrage horizontal */
+}
+
+
+/* ============================================================
+   MESSAGE DE SUCCES GLOBAL
+   Cache par defaut, affiche quand il contient du texte
+   ============================================================ */
+.message-succes {
+    display: none;              /* Cache par defaut */
+    background-color: var(--couleur-succes-fond);
+    color: var(--couleur-succes);
+    border: 2px solid var(--couleur-succes);
+    border-radius: var(--rayon-bordure);
+    padding: var(--espacement-grand);
+    margin-bottom: var(--espacement-tres-grand);
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 600;
+
+    /* Animation d'apparition */
+    animation: apparition 0.5s ease;
+}
+
+/* Afficher le message de succes quand il a la classe "visible" */
+.message-succes.visible {
+    display: block;
+}
+
+/* Animation d'apparition en fondu */
+@keyframes apparition {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ============================================================
+   FORMULAIRE
+   ============================================================ */
+#formulaire-contact {
+    background-color: var(--couleur-blanc);
+    border-radius: var(--rayon-bordure);
+    box-shadow: var(--ombre-carte);
+    padding: var(--espacement-tres-grand);
+}
+
+
+/* ============================================================
+   GROUPE DE CHAMP (conteneur label + input + erreur)
+   ============================================================ */
+.champ-groupe {
+    margin-bottom: var(--espacement-grand);
+}
+
+
+/* ============================================================
+   LABELS
+   ============================================================ */
+.champ-groupe label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: var(--espacement-petit);
+    color: var(--couleur-texte);
+    font-size: 0.95rem;
+}
+
+
+/* ============================================================
+   CHAMPS DE SAISIE (input, textarea)
+   Styles communs a tous les champs
+   ============================================================ */
+.champ-groupe input[type="text"],
+.champ-groupe input[type="email"],
+.champ-groupe input[type="tel"],
+.champ-groupe input[type="number"],
+.champ-groupe input[type="password"],
+.champ-groupe textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-family: var(--police-principale);
+    font-size: 1rem;
+    color: var(--couleur-texte);
+    background-color: var(--couleur-blanc);
+    border: 2px solid var(--couleur-bordure);
+    border-radius: var(--rayon-bordure);
+
+    /* Transition fluide pour le changement de bordure */
+    transition: border-color var(--transition-rapide),
+                box-shadow var(--transition-rapide);
+}
+
+/* Placeholder (texte d'aide dans les champs vides) */
+.champ-groupe input::placeholder,
+.champ-groupe textarea::placeholder {
+    color: var(--couleur-texte-clair);
+    opacity: 0.7;
+}
+
+/* Zone de texte (textarea) : empecher le redimensionnement horizontal */
+.champ-groupe textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+
+/* ============================================================
+   ETAT FOCUS (quand le champ est selectionne)
+   ============================================================ */
+.champ-groupe input:focus,
+.champ-groupe textarea:focus {
+    outline: none;                                /* Supprime le contour natif */
+    border-color: var(--couleur-bordure-focus);   /* Bordure bleue */
+    box-shadow: var(--ombre-focus);               /* Halo bleu autour */
+}
+
+
+/* ============================================================
+   ETAT ERREUR (champ invalide)
+   Classe ajoutee par JavaScript
+   ============================================================ */
+.champ-groupe input.erreur,
+.champ-groupe textarea.erreur {
+    border-color: var(--couleur-erreur);          /* Bordure rouge */
+    background-color: var(--couleur-erreur-fond); /* Fond rose clair */
+}
+
+/* Focus sur un champ en erreur */
+.champ-groupe input.erreur:focus,
+.champ-groupe textarea.erreur:focus {
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2); /* Halo rouge */
+}
+
+
+/* ============================================================
+   ETAT SUCCES (champ valide)
+   Classe ajoutee par JavaScript
+   ============================================================ */
+.champ-groupe input.valide,
+.champ-groupe textarea.valide {
+    border-color: var(--couleur-succes);          /* Bordure verte */
+}
+
+/* Focus sur un champ valide */
+.champ-groupe input.valide:focus,
+.champ-groupe textarea.valide:focus {
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.2); /* Halo vert */
+}
+
+
+/* ============================================================
+   MESSAGES D'ERREUR
+   Caches par defaut, visibles quand ils contiennent du texte
+   ============================================================ */
+.error-message {
+    color: var(--couleur-erreur);
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-top: var(--espacement-petit);
+    min-height: 0;              /* Pas de hauteur quand vide */
+    transition: all var(--transition-rapide);
+}
+
+/* Quand le message est vide, il ne prend pas de place */
+.error-message:empty {
+    display: none;
+}
+
+
+/* ============================================================
+   FIELDSET ET LEGEND (pour les groupes radio et checkbox)
+   ============================================================ */
+.groupe-radio,
+.groupe-checkbox {
+    border: 2px solid var(--couleur-bordure);
+    border-radius: var(--rayon-bordure);
+    padding: var(--espacement-moyen) var(--espacement-grand);
+}
+
+/* Legend : titre du groupe */
+.groupe-radio legend,
+.groupe-checkbox legend {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--couleur-texte);
+    padding: 0 var(--espacement-petit);
+}
+
+
+/* ============================================================
+   OPTIONS RADIO ET CHECKBOX
+   ============================================================ */
+.option-radio,
+.option-checkbox {
+    display: flex;
+    align-items: center;
+    gap: var(--espacement-petit);
+    margin: var(--espacement-petit) 0;
+}
+
+/* Labels a cote des radio/checkbox : pas en gras, taille normale */
+.option-radio label,
+.option-checkbox label {
+    font-weight: 400;
+    margin-bottom: 0;
+    cursor: pointer;
+}
+
+/* Stylisation des boutons radio et checkbox */
+.option-radio input[type="radio"],
+.option-checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: var(--couleur-primaire);
+}
+
+
+/* ============================================================
+   INDICATEUR DE FORCE DU MOT DE PASSE
+   ============================================================ */
+.force-mdp {
+    margin-top: var(--espacement-petit);
+    display: none;              /* Cache par defaut */
+}
+
+/* Afficher quand il a la classe "visible" */
+.force-mdp.visible {
+    display: block;
+}
+
+/* Barre de progression de la force */
+.barre-force {
+    height: 6px;
+    border-radius: 3px;
+    background-color: var(--couleur-bordure);
+    transition: all var(--transition-normale);
+    margin-bottom: 4px;
+}
+
+/* Niveaux de force : faible, moyen, fort, tres-fort */
+.barre-force.faible {
+    width: 25%;
+    background-color: var(--couleur-erreur);
+}
+
+.barre-force.moyen {
+    width: 50%;
+    background-color: var(--couleur-avertissement);
+}
+
+.barre-force.fort {
+    width: 75%;
+    background-color: #22c55e;
+}
+
+.barre-force.tres-fort {
+    width: 100%;
+    background-color: var(--couleur-succes);
+}
+
+/* Texte indiquant la force */
+.texte-force {
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.texte-force.faible { color: var(--couleur-erreur); }
+.texte-force.moyen { color: var(--couleur-avertissement); }
+.texte-force.fort { color: #22c55e; }
+.texte-force.tres-fort { color: var(--couleur-succes); }
+
+
+/* ============================================================
+   COMPTEUR DE CARACTERES (pour le champ message)
+   ============================================================ */
+.compteur-caracteres {
+    font-size: 0.8rem;
+    color: var(--couleur-texte-clair);
+    text-align: right;
+    margin-top: 4px;
+}
+
+
+/* ============================================================
+   CONDITIONS (espacement special)
+   ============================================================ */
+.champ-conditions {
+    margin-top: var(--espacement-tres-grand);
+    padding-top: var(--espacement-grand);
+    border-top: 1px solid var(--couleur-bordure);
+}
+
+/* Lien dans les conditions */
+.champ-conditions a {
+    color: var(--couleur-primaire);
+    text-decoration: underline;
+}
+
+.champ-conditions a:hover {
+    color: var(--couleur-primaire-foncee);
+}
+
+
+/* ============================================================
+   BOUTONS
+   ============================================================ */
+.groupe-boutons {
+    display: flex;
+    gap: var(--espacement-moyen);
+    margin-top: var(--espacement-tres-grand);
+}
+
+/* Style de base commun aux boutons */
+.btn {
+    flex: 1;                    /* Les boutons prennent la meme largeur */
+    padding: 0.85rem 1.5rem;
+    font-family: var(--police-principale);
+    font-size: 1rem;
+    font-weight: 600;
+    border: 2px solid transparent;
+    border-radius: var(--rayon-bordure);
+    cursor: pointer;
+
+    /* Transition fluide pour les effets hover */
+    transition: all var(--transition-rapide);
+}
+
+/* Bouton Envoyer (principal) */
+.btn-envoyer {
+    background-color: var(--couleur-primaire);
+    color: var(--couleur-blanc);
+}
+
+/* Hover sur le bouton Envoyer */
+.btn-envoyer:hover {
+    background-color: var(--couleur-primaire-foncee);
+    transform: translateY(-2px);    /* Leger soulagement */
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+/* Etat actif (clic) sur le bouton Envoyer */
+.btn-envoyer:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* Bouton Reinitialiser (secondaire) */
+.btn-reinitialiser {
+    background-color: transparent;
+    color: var(--couleur-texte-clair);
+    border-color: var(--couleur-bordure);
+}
+
+/* Hover sur le bouton Reinitialiser */
+.btn-reinitialiser:hover {
+    background-color: var(--couleur-fond);
+    color: var(--couleur-texte);
+    border-color: var(--couleur-texte-clair);
+}
+
+/* Focus sur les boutons (accessibilite) */
+.btn:focus-visible {
+    outline: 3px solid var(--couleur-primaire);
+    outline-offset: 2px;
+}
+
+
+/* ============================================================
+   PIED DE PAGE
+   ============================================================ */
+.site-footer {
+    background-color: var(--couleur-texte);
+    color: var(--couleur-texte-clair);
+    text-align: center;
+    padding: var(--espacement-grand) var(--espacement-moyen);
+    font-size: 0.9rem;
+}
+
+.site-footer p {
+    color: #9ca3af;
+}
+
+
+/* ============================================================
+   RESPONSIVE DESIGN
+   Adaptation pour les differentes tailles d'ecran
+   ============================================================ */
+
+/* --- Tablettes et petits ecrans (max 768px) --- */
+@media (max-width: 768px) {
+    /* Reduire le padding du header */
+    .site-header {
+        padding: var(--espacement-grand) var(--espacement-moyen);
+    }
+
+    .site-header h1 {
+        font-size: 1.5rem;
+    }
+
+    /* Reduire le padding du formulaire */
+    #formulaire-contact {
+        padding: var(--espacement-grand);
+    }
+
+    /* Boutons en colonne sur petit ecran */
+    .groupe-boutons {
+        flex-direction: column;
+    }
+}
+
+/* --- Tres petits ecrans / mobiles (max 480px) --- */
+@media (max-width: 480px) {
+    .site-header h1 {
+        font-size: 1.25rem;
+    }
+
+    .site-main {
+        padding: var(--espacement-moyen) var(--espacement-petit);
+    }
+
+    #formulaire-contact {
+        padding: var(--espacement-moyen);
+        border-radius: var(--espacement-petit);
+    }
+
+    /* Champs un peu plus petits */
+    .champ-groupe input[type="text"],
+    .champ-groupe input[type="email"],
+    .champ-groupe input[type="tel"],
+    .champ-groupe input[type="number"],
+    .champ-groupe input[type="password"],
+    .champ-groupe textarea {
+        padding: 0.6rem 0.75rem;
+        font-size: 0.95rem;
+    }
+}
+
+/* --- Grands ecrans (min 1024px) --- */
+@media (min-width: 1024px) {
+    .site-main {
+        max-width: 800px;       /* Formulaire un peu plus large */
+    }
+
+    .site-header h1 {
+        font-size: 2.5rem;
+    }
+}

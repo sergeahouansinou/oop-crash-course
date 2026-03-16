@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<!--
+    ============================================================
+    FORMULAIRE DE CONTACT / INSCRIPTION
+    ============================================================
+    Ce fichier HTML contient un formulaire complet avec :
+    - Validation cote client (via script.js)
+    - Envoi vers le serveur pour validation cote serveur (traitement.php)
+    - Structure semantique HTML5 (header, main, footer)
+    - Accessibilite : labels associes, attributs aria, placeholders
+    ============================================================
+-->
+<html lang="fr">
+<head>
+    <!-- Encodage des caracteres en UTF-8 pour supporter les accents francais -->
+    <meta charset="UTF-8">
+
+    <!-- Meta viewport pour le responsive design sur mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Titre de la page affiche dans l'onglet du navigateur -->
+    <title>Formulaire de Contact - Validation Client &amp; Serveur</title>
+
+    <!-- Lien vers la feuille de style externe -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ============================================================
+         EN-TETE DE LA PAGE
+         ============================================================ -->
+    <header class="site-header">
+        <h1>Formulaire de Contact</h1>
+        <p>Remplissez tous les champs obligatoires marques d'un <span class="requis">*</span></p>
+    </header>
+
+    <!-- ============================================================
+         CONTENU PRINCIPAL
+         ============================================================ -->
+    <main class="site-main">
+
+        <!-- Message de succes global (cache par defaut, affiche par JS) -->
+        <div id="message-succes" class="message-succes" role="alert" aria-live="polite"></div>
+
+        <!-- ============================================================
+             FORMULAIRE PRINCIPAL
+             - action : envoie les donnees vers traitement.php
+             - method : POST pour securiser les donnees
+             - novalidate : desactive la validation native du navigateur
+               pour utiliser notre propre validation JS
+             ============================================================ -->
+        <form id="formulaire-contact" action="traitement.php" method="POST" novalidate>
+
+            <!-- ============================
+                 CHAMP NOM
+                 ============================ -->
+            <div class="champ-groupe">
+                <!-- Label associe au champ via l'attribut "for" -->
+                <label for="nom">Nom <span class="requis">*</span></label>
+
+                <!-- Champ texte pour le nom de famille -->
+                <input
+                    type="text"
+                    id="nom"
+                    name="nom"
+                    placeholder="Entrez votre nom de famille"
+                    required
+                    minlength="2"
+                    maxlength="50"
+                    autocomplete="family-name"
+                >
+
+                <!-- Conteneur pour le message d'erreur (rempli par JS) -->
+                <div class="error-message" id="erreur-nom" aria-live="polite"></div>
+            </div>
+
+            <!-- ============================
+                 CHAMP PRENOM
+                 ============================ -->
+            <div class="champ-groupe">
+                <label for="prenom">Prenom <span class="requis">*</span></label>
+
+                <!-- Champ texte pour le prenom -->
+                <input
+                    type="text"
+                    id="prenom"
+                    name="prenom"
+                    placeholder="Entrez votre prenom"
+                    required
+                    minlength="2"
+                    maxlength="50"
+                    autocomplete="given-name"
+                >
+
+                <!-- Message d'erreur pour le prenom -->
+                <div class="error-message" id="erreur-prenom" aria-live="polite"></div>
+            </div>
+
+            <!-- ============================
+                 CHAMP EMAIL
+                 ============================ -->
+            <div class="champ-groupe">
+                <label for="email">Adresse e-mail <span class="requis">*</span></label>
+
+                <!-- Champ de type email avec validation native -->
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="exemple@domaine.fr"
+                    required
+                    autocomplete="email"
+                >
+
+                <!-- Message d'erreur pour l'email -->
+                <div class="error-message" id="erreur-email" aria-live="polite"></div>
+            </div>
+
+            <!-- ============================
+                 CHAMP TELEPHONE
+                 ============================ -->
+            <div class="champ-groupe">
+                <label for="telephone">Telephone <span class="requis">*</span></label>
+
+                <!-- Champ de type tel pour le numero de telephone -->
+                <input
+                    type="tel"
+                    id="telephone"
+                    name="telephone"
+                    placeholder="0612345678"
+                    required
+                    pattern="^0[1-9][0-9]{8}$"
+                    maxlength="10"
+                    autocomplete="tel"
+                >
+
+                <!-- Message d'erreur pour le telephone -->
+                <div class="error-message" id="erreur-telephone" aria-live="polite"></div>
+            </div>
+
+            <!-- ============================
+                 CHAMP AGE
+                 ============================ -->
+            <div class="champ-groupe">
+                <label for="age">Age <span class="requis">*</span></label>
+
+                <!-- Champ numerique pour l'age avec bornes min et max -->
+                <input
+                    type="number"
+                    id="age"
+                    name="age"
+                    placeholder="Votre age"
+                    required
+                    min="13"
+                    max="120"
+                >
+
+                <!-- Message d'erreur pour l'age -->
+                <div class="error-message" id="erreur-age" aria-live="polite"></div>
+            </div>
+
+            <!-- ============================
+                 CHAMP MOT DE PASSE
+                 ============================ -->
+            <div class="champ-groupe">
+                <label for="mot-de-passe">Mot de passe <span class="requis">*</span></label>
+
+                <!-- Champ mot de passe avec longueur minimale -->
+                <input
+                    type="password"
+                    id="mot-de-passe"
+                    name="mot_de_passe"
+                    placeholder="Minimum 8 caracteres"
+                    required
+                    minlength="8"
+                    autocomplete="new-password"
+                >
+
+                <!-- Indicateur de force du mot de passe (rempli par JS) -->
+                <div id="force-mdp" class="force-mdp">
+                    <div id="barre-force" class="barre-force"></div>
+                    <span id="texte-force" class="texte-force"></span>
+                </div>
+
+                <!-- Message d'erreur pour le mot de passe -->
+                <div class="error-message" id="erreur-mot-de-passe" aria-live="polite"></div>
+            </div>
+
+            <!-- ============================
+                 CHAMP CONFIRMATION MOT DE PASSE
+                 ============================ -->
+            <div class="champ-groupe">
+                <label for="confirmation-mdp">Confirmer le mot de passe <span class="requis">*</span></label>
+
+                <!-- Champ pour confirmer le mot de passe -->
+                <input
+                    type="password"
+                    id="confirmation-mdp"
+                    name="confirmation_mdp"
+                    placeholder="Retapez votre mot de passe"
+                    required
+                    minlength="8"
+                    autocomplete="new-password"
+                >
+
+                <!-- Message d'erreur pour la confirmation -->
+                <div class="error-message" id="erreur-confirmation-mdp" aria-live="polite"></div>
+            </div>
+
+            <!-- ============================
+                 CHAMP GENRE (boutons radio)
+                 ============================ -->
+            <div class="champ-groupe">
+                <!-- Utilisation de fieldset/legend pour regrouper les boutons radio -->
+                <fieldset class="groupe-radio">
+                    <legend>Genre <span class="requis">*</span></legend>
+
+                    <!-- Option Homme -->
+                    <div class="option-radio">
+                        <input type="radio" id="genre-homme" name="genre" value="homme" required>
+                        <label for="genre-homme">Homme</label>
+                    </div>
+
+                    <!-- Option Femme -->
+                    <div class="option-radio">
+                        <input type="radio" id="genre-femme" name="genre" value="femme">
+                        <label for="genre-femme">Femme</label>
+                    </div>
+
+                    <!-- Option Autre -->
+                    <div class="option-radio">
+                        <input type="radio" id="genre-autre" name="genre" value="autre">
+                        <label for="genre-autre">Autre</label>
+                    </div>
+                </fieldset>
+
+                <!-- Message d'erreur pour le genre -->
+                <div class="error-message" id="erreur-genre" aria-live="polite"></div>
+            </div>
+
+            <!-- ============================
+                 CENTRES D'INTERET (cases a cocher)
+                 ============================ -->
+            <div class="champ-groupe">
+                <fieldset class="groupe-checkbox">
+                    <legend>Centres d'interet</legend>
+
+                    <!-- Case a cocher : Sport -->
+                    <div class="option-checkbox">
+                        <input type="checkbox" id="interet-sport" name="interets[]" value="sport">
+                        <label for="interet-sport">Sport</label>
+                    </div>
+
+                    <!-- Case a cocher : Musique -->
+                    <div class="option-checkbox">
+                        <input type="checkbox" id="interet-musique" name="interets[]" value="musique">
+                        <label for="interet-musique">Musique</label>
+                    </div>
+
+                    <!-- Case a cocher : Lecture -->
+                    <div class="option-checkbox">
+                        <input type="checkbox" id="interet-lecture" name="interets[]" value="lecture">
+                        <label for="interet-lecture">Lecture</label>
+                    </div>
+
+                    <!-- Case a cocher : Voyage -->
+                    <div class="option-checkbox">
+                        <input type="checkbox" id="interet-voyage" name="interets[]" value="voyage">
+                        <label for="interet-voyage">Voyage</label>
+                    </div>
+                </fieldset>
+
+                <!-- Message d'erreur pour les centres d'interet -->
+                <div class="error-message" id="erreur-interets" aria-live="polite"></div>
+            </div>
+
+            <!-- ============================
+                 CHAMP MESSAGE (zone de texte)
+                 ============================ -->
+            <div class="champ-groupe">
+                <label for="message">Message <span class="requis">*</span></label>
+
+                <!-- Zone de texte multi-lignes pour le message -->
+                <textarea
+                    id="message"
+                    name="message"
+                    placeholder="Ecrivez votre message ici (minimum 10 caracteres)..."
+                    required
+                    minlength="10"
+                    maxlength="1000"
+                    rows="5"
+                ></textarea>
+
+                <!-- Compteur de caracteres (rempli par JS) -->
+                <div id="compteur-message" class="compteur-caracteres">0 / 1000 caracteres</div>
+
+                <!-- Message d'erreur pour le message -->
+                <div class="error-message" id="erreur-message" aria-live="polite"></div>
+            </div>
+
+            <!-- ============================
+                 CASE CONDITIONS GENERALES
+                 ============================ -->
+            <div class="champ-groupe champ-conditions">
+                <div class="option-checkbox">
+                    <!-- Case a cocher obligatoire pour les conditions -->
+                    <input
+                        type="checkbox"
+                        id="conditions"
+                        name="conditions"
+                        value="accepte"
+                        required
+                    >
+                    <label for="conditions">
+                        J'accepte les <a href="#" target="_blank">conditions generales d'utilisation</a>
+                        <span class="requis">*</span>
+                    </label>
+                </div>
+
+                <!-- Message d'erreur pour les conditions -->
+                <div class="error-message" id="erreur-conditions" aria-live="polite"></div>
+            </div>
+
+            <!-- ============================
+                 BOUTONS D'ACTION
+                 ============================ -->
+            <div class="groupe-boutons">
+                <!-- Bouton de soumission du formulaire -->
+                <button type="submit" class="btn btn-envoyer">Envoyer</button>
+
+                <!-- Bouton de reinitialisation du formulaire -->
+                <button type="reset" class="btn btn-reinitialiser">Reinitialiser</button>
+            </div>
+
+        </form>
+        <!-- Fin du formulaire -->
+
+    </main>
+
+    <!-- ============================================================
+         PIED DE PAGE
+         ============================================================ -->
+    <footer class="site-footer">
+        <p>&copy; 2026 - Cours Formulaire - Validation Client &amp; Serveur</p>
+    </footer>
+
+    <!-- ============================================================
+         SCRIPT DE VALIDATION COTE CLIENT
+         Place avant la fermeture de </body> pour que le DOM soit charge
+         ============================================================ -->
+    <script src="script.js"></script>
+
+</body>
+</html>
