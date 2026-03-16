@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<!--
+    ============================================================
+    PAGE DE DEMONSTRATION JAVASCRIPT
+    ============================================================
+    Ce fichier HTML accompagne le fichier script.js du cours JS.
+
+    Le fichier script.js contient du code de demonstration dont
+    la majorite est commentee. Pour tester chaque section :
+    1. Ouvrir cette page dans le navigateur
+    2. Ouvrir la console (F12 > Console) pour voir les resultats
+       des sections 1 a 10 (variables, fonctions, tableaux, etc.)
+    3. Decommenter les sections DOM et evenements dans script.js
+       pour interagir avec les elements de cette page
+
+    Structure de la page :
+    - Section DOM : elements pour la manipulation du DOM
+    - Section Evenements : boutons et champs pour les ecouteurs
+    - Section Todo List : application complete avec localStorage
+    ============================================================
+-->
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cours JavaScript - Page de demonstration</title>
+
+    <style>
+        /* ============================================================
+           STYLES DE BASE
+           ============================================================ */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background-color: #f9fafb;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* En-tete */
+        header {
+            background-color: #f59e0b;
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+        header h1 { font-size: 2rem; }
+        header p { opacity: 0.9; margin-top: 0.5rem; }
+
+        /* Contenu principal */
+        main {
+            flex: 1;
+            max-width: 900px;
+            width: 100%;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* Sections */
+        .section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .section h2 {
+            color: #f59e0b;
+            border-bottom: 2px solid #f59e0b;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .section h3 {
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #374151;
+        }
+
+        /* Instructions */
+        .instructions {
+            background-color: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 0 8px 8px 0;
+        }
+        .instructions code {
+            background-color: #fef3c7;
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        /* Boutons */
+        button {
+            padding: 0.6rem 1.2rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 0.25rem;
+            transition: all 0.2s ease;
+        }
+        .btn-principal {
+            background-color: #f59e0b;
+            color: white;
+        }
+        .btn-principal:hover { background-color: #d97706; }
+        .btn-danger {
+            background-color: #ef4444;
+            color: white;
+        }
+        .btn-danger:hover { background-color: #dc2626; }
+        .btn-secondaire {
+            background-color: #e5e7eb;
+            color: #374151;
+        }
+        .btn-secondaire:hover { background-color: #d1d5db; }
+
+        /* Champs de saisie */
+        input[type="text"],
+        input[type="email"] {
+            padding: 0.6rem 1rem;
+            font-size: 1rem;
+            border: 2px solid #d1d5db;
+            border-radius: 6px;
+            width: 100%;
+            max-width: 400px;
+            transition: border-color 0.2s;
+        }
+        input:focus {
+            outline: none;
+            border-color: #f59e0b;
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+        }
+
+        /* Boites de demonstration */
+        .boite {
+            background-color: #dbeafe;
+            border: 2px solid #3b82f6;
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 0.5rem 0;
+        }
+
+        /* Zone de survol */
+        #zone-survol {
+            padding: 2rem;
+            text-align: center;
+            border: 2px dashed #d1d5db;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+        #zone-survol:hover {
+            border-color: #f59e0b;
+            background-color: #fffbeb;
+        }
+
+        /* Resultat / sortie */
+        .sortie {
+            background-color: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 1rem;
+            margin-top: 0.5rem;
+            min-height: 2.5rem;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        /* ============================================================
+           STYLES POUR LA TODO LIST
+           ============================================================ */
+        #app-todo {
+            max-width: 600px;
+        }
+
+        #formulaire-todo {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        #formulaire-todo input {
+            flex: 1;
+            max-width: none;
+        }
+
+        #filtres {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .filtre {
+            padding: 0.4rem 1rem;
+            background-color: #e5e7eb;
+            color: #374151;
+            font-size: 0.9rem;
+        }
+        .filtre.actif {
+            background-color: #f59e0b;
+            color: white;
+        }
+
+        #liste-taches {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tache {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            transition: all 0.2s;
+        }
+        .tache:hover {
+            border-color: #f59e0b;
+        }
+        .tache.terminee .texte-tache {
+            text-decoration: line-through;
+            opacity: 0.5;
+        }
+        .texte-tache {
+            flex: 1;
+        }
+        .date-tache {
+            font-size: 0.8rem;
+            color: #9ca3af;
+        }
+        .btn-supprimer {
+            padding: 0.3rem 0.6rem;
+            font-size: 0.8rem;
+        }
+
+        #compteur-taches {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+
+        .vide {
+            text-align: center;
+            color: #9ca3af;
+            padding: 2rem;
+            font-style: italic;
+        }
+
+        /* Classes utilisees par la manipulation DOM */
+        .important {
+            background-color: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 0.5rem 1rem;
+        }
+        .active {
+            border: 2px solid #22c55e;
+            background-color: #f0fdf4;
+        }
+        .nouveau {
+            animation: apparition 0.5s ease;
+        }
+        .hidden { display: none; }
+        .visible { display: block; }
+
+        @keyframes apparition {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Pied de page */
+        footer {
+            background-color: #1f2937;
+            color: #9ca3af;
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.5rem; }
+            .section { padding: 1.5rem; }
+            #formulaire-todo { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================
+         EN-TETE
+         ============================================================ -->
+    <header>
+        <h1>Cours JavaScript</h1>
+        <p>Ouvrez la console du navigateur (F12) pour voir les resultats du script</p>
+    </header>
+
+    <main>
+
+        <!-- ============================================================
+             INSTRUCTIONS
+             ============================================================ -->
+        <div class="instructions">
+            <p><strong>Comment utiliser cette page :</strong></p>
+            <p>
+                Le fichier <code>script.js</code> contient le code de demonstration du cours.
+                Les sections 1 a 10 (variables, fonctions, tableaux, objets...) s'affichent dans
+                la <strong>console du navigateur</strong> (F12 > Console).
+            </p>
+            <p style="margin-top: 0.5rem;">
+                Les sections DOM, evenements et Todo List sont <strong>commentees</strong> dans
+                le script. Decommentez-les une par une dans <code>script.js</code> pour les tester
+                sur cette page.
+            </p>
+        </div>
+
+
+        <!-- ============================================================
+             SECTION 1 : MANIPULATION DU DOM
+             Elements cibles par getElementById, querySelector, etc.
+             ============================================================ -->
+        <div class="section">
+            <h2>Manipulation du DOM</h2>
+            <p>
+                Ces elements sont cibles par les fonctions DOM du script
+                (<code>getElementById</code>, <code>querySelector</code>, etc.)
+            </p>
+
+            <!-- Element cible par getElementById("titre-principal") -->
+            <h3 id="titre-principal">Titre principal (id="titre-principal")</h3>
+            <p>Ce titre sera modifie par <code>element.textContent</code> et
+               <code>element.style</code>.</p>
+
+            <!-- Element cible par querySelector("#mon-id") -->
+            <div id="mon-id" class="boite">
+                Element avec id="mon-id" et class="boite"
+            </div>
+
+            <!-- Elements cibles par querySelector(".ma-classe") -->
+            <div class="ma-classe boite" style="margin-top: 0.5rem;">
+                Element avec class="ma-classe" (premier resultat de querySelector)
+            </div>
+
+            <!-- Conteneur pour appendChild / createElement -->
+            <h3>Conteneur pour les elements crees dynamiquement</h3>
+            <div id="conteneur" class="sortie">
+                <!-- Les elements crees par JavaScript apparaitront ici -->
+                <em>Les elements crees par document.createElement() seront ajoutes ici</em>
+            </div>
+        </div>
+
+
+        <!-- ============================================================
+             SECTION 2 : EVENEMENTS
+             Boutons et champs pour les ecouteurs d'evenements
+             ============================================================ -->
+        <div class="section">
+            <h2>Evenements JavaScript</h2>
+            <p>
+                Decommentez la section "Evenements" dans <code>script.js</code>
+                pour activer les ecouteurs sur ces elements.
+            </p>
+
+            <!-- Bouton cible par getElementById("mon-bouton") -->
+            <h3>Click et double-click</h3>
+            <button id="mon-bouton" class="btn-principal">
+                Cliquez-moi (id="mon-bouton")
+            </button>
+            <div class="sortie" id="sortie-bouton">En attente d'un clic...</div>
+
+            <!-- Formulaire cible par getElementById("mon-formulaire") -->
+            <h3>Soumission de formulaire</h3>
+            <form id="mon-formulaire" style="display: flex; gap: 0.5rem; align-items: end; flex-wrap: wrap;">
+                <div>
+                    <label for="champ-prenom" style="display: block; margin-bottom: 0.25rem; font-weight: 600;">
+                        Prenom :
+                    </label>
+                    <input type="text" id="champ-prenom" name="prenom" placeholder="Entrez votre prenom">
+                </div>
+                <button type="submit" class="btn-principal">Soumettre</button>
+            </form>
+            <div class="sortie" id="sortie-formulaire">En attente de soumission...</div>
+
+            <!-- Champ de recherche cible par getElementById("recherche") -->
+            <h3>Saisie en temps reel (evenement input)</h3>
+            <input type="text" id="recherche" placeholder="Tapez quelque chose...">
+            <div class="sortie" id="sortie-recherche">En attente de saisie...</div>
+
+            <!-- Zone de survol cible par getElementById("zone-survol") -->
+            <h3>Survol de la souris (mouseover / mouseout)</h3>
+            <div id="zone-survol">
+                Survolez cette zone avec la souris (id="zone-survol")
+            </div>
+        </div>
+
+
+        <!-- ============================================================
+             SECTION 3 : TODO LIST
+             Application complete combinant DOM, events et localStorage
+             ============================================================ -->
+        <div class="section">
+            <h2>Mini-projet : Todo List</h2>
+            <p>
+                Decommentez la section "Todo List" dans <code>script.js</code>
+                pour activer cette application. Elle utilise le DOM, les evenements,
+                et le localStorage pour sauvegarder les taches.
+            </p>
+
+            <div id="app-todo" style="margin-top: 1rem;">
+                <!-- Formulaire d'ajout de tache -->
+                <form id="formulaire-todo">
+                    <input type="text" id="champ-tache" placeholder="Ajouter une tache...">
+                    <button type="submit" class="btn-principal">Ajouter</button>
+                </form>
+
+                <!-- Filtres : toutes, actives, terminees -->
+                <div id="filtres">
+                    <button class="filtre actif" data-filtre="toutes">Toutes</button>
+                    <button class="filtre" data-filtre="actives">Actives</button>
+                    <button class="filtre" data-filtre="terminees">Terminees</button>
+                </div>
+
+                <!-- Liste des taches (remplie dynamiquement par JS) -->
+                <ul id="liste-taches">
+                    <li class="vide">Decommentez la section Todo List dans script.js pour commencer</li>
+                </ul>
+
+                <!-- Compteur de taches -->
+                <p id="compteur-taches"></p>
+            </div>
+        </div>
+
+
+        <!-- ============================================================
+             SECTION 4 : FETCH API
+             ============================================================ -->
+        <div class="section">
+            <h2>Fetch API</h2>
+            <p>
+                La section Fetch du script utilise <code>fetch()</code> pour recuperer
+                des donnees depuis une API externe. Les resultats s'affichent dans la
+                <strong>console</strong> (F12).
+            </p>
+            <p style="margin-top: 0.5rem;">
+                API utilisee dans le cours :
+                <code>https://jsonplaceholder.typicode.com/posts</code>
+            </p>
+        </div>
+
+
+        <!-- ============================================================
+             SECTION 5 : LOCALSTORAGE
+             ============================================================ -->
+        <div class="section">
+            <h2>localStorage</h2>
+            <p>
+                La section localStorage du script sauvegarde et recupere des donnees
+                dans le navigateur. Ouvrez l'onglet <strong>Application > Local Storage</strong>
+                dans les DevTools (F12) pour voir les donnees stockees.
+            </p>
+        </div>
+
+    </main>
+
+    <!-- ============================================================
+         PIED DE PAGE
+         ============================================================ -->
+    <footer>
+        <p>&copy; 2026 - Cours JavaScript pour debutants</p>
+    </footer>
+
+    <!-- ============================================================
+         SCRIPT DU COURS
+         Place avant </body> pour que le DOM soit charge
+         ============================================================ -->
+    <script src="script.js"></script>
+
+</body>
+</html>

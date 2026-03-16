@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<!--
+    ============================================================
+    PAGE DE DEMONSTRATION CSS
+    ============================================================
+    Ce fichier HTML accompagne le fichier style.css du cours CSS.
+    Il contient tous les elements necessaires pour voir en action
+    chaque concept enseigne dans LEARN_CSS.md :
+    - Variables CSS, typographie, couleurs
+    - Box model, positionnement
+    - Flexbox, CSS Grid
+    - Composants : cartes, boutons, formulaire, navigation
+    - Animations et transitions
+    - Responsive design
+    - Classes utilitaires
+
+    Ouvrir ce fichier dans le navigateur pour voir le rendu.
+    ============================================================
+-->
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cours CSS - Page de demonstration</title>
+
+    <!-- Lien vers la feuille de style du cours -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ============================================================
+         STRUCTURE DE LA PAGE (CSS Grid via .page)
+         ============================================================ -->
+    <div class="page">
+
+        <!-- ============================================================
+             HEADER : EN-TETE FIXE
+             Utilise .header avec position: fixed et z-index
+             ============================================================ -->
+        <header class="header">
+            <div class="conteneur">
+                <!-- Logo avec effet hover -->
+                <a href="#" class="logo">MonSiteCSS</a>
+
+                <!-- Navigation Flexbox avec liens BEM -->
+                <nav class="nav">
+                    <a href="#hero" class="nav__lien nav__lien--actif">Accueil</a>
+                    <a href="#services" class="nav__lien">Services</a>
+                    <a href="#projets" class="nav__lien">Projets</a>
+                    <a href="#box-model" class="nav__lien">Box Model</a>
+                    <a href="#formulaire" class="nav__lien">Contact</a>
+                </nav>
+            </div>
+        </header>
+
+
+        <!-- ============================================================
+             HERO : SECTION D'ACCUEIL
+             Flexbox centree, hauteur 100vh, animation du titre
+             ============================================================ -->
+        <section class="hero" id="hero">
+            <!-- Titre avec animation @keyframes apparitionTitre -->
+            <h1 class="hero__titre">Bienvenue sur le cours CSS</h1>
+
+            <!-- Sous-titre avec animation fondu -->
+            <p class="hero__sous-titre">
+                Decouvrez toutes les notions du CSS a travers cette page de demonstration
+            </p>
+
+            <!-- Boutons : principal et secondaire -->
+            <div>
+                <a href="#services" class="bouton bouton--principal">Decouvrir</a>
+                <a href="#formulaire" class="bouton bouton--secondaire">Me contacter</a>
+            </div>
+        </section>
+
+
+        <!-- ============================================================
+             CONTENU PRINCIPAL
+             ============================================================ -->
+        <main class="contenu-principal">
+
+
+            <!-- ========================================
+                 SECTION SERVICES (CSS Grid 3 colonnes)
+                 ======================================== -->
+            <section class="section" id="services">
+                <h2 class="section__titre texte-centre">Nos services</h2>
+                <p class="section__sous-titre texte-centre">
+                    Trois domaines d'expertise pour vos projets web
+                </p>
+
+                <!-- Grille responsive : 1 col mobile, 2 col tablette, 3 col desktop -->
+                <div class="grille-services">
+                    <!-- Service 1 -->
+                    <div class="service">
+                        <div class="service__icone">&#127912;</div>
+                        <h3 class="service__titre">Design</h3>
+                        <p class="service__texte">
+                            Creation d'interfaces modernes et accessibles avec une attention
+                            particuliere au detail et a l'experience utilisateur.
+                        </p>
+                    </div>
+
+                    <!-- Service 2 -->
+                    <div class="service">
+                        <div class="service__icone">&#128187;</div>
+                        <h3 class="service__titre">Developpement</h3>
+                        <p class="service__texte">
+                            Code propre et performant en HTML, CSS et JavaScript
+                            pour des sites rapides et fiables.
+                        </p>
+                    </div>
+
+                    <!-- Service 3 -->
+                    <div class="service">
+                        <div class="service__icone">&#128241;</div>
+                        <h3 class="service__titre">Responsive</h3>
+                        <p class="service__texte">
+                            Adaptation parfaite a tous les ecrans : mobile, tablette
+                            et ordinateur de bureau.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- ========================================
+                 SECTION PROJETS (Grille de cartes)
+                 ======================================== -->
+            <section class="section" id="projets">
+                <h2 class="section__titre texte-centre">Nos projets</h2>
+                <p class="section__sous-titre texte-centre">
+                    Quelques realisations recentes
+                </p>
+
+                <!-- Grille de cartes responsive -->
+                <div class="grille-cartes">
+                    <!-- Carte mise en avant (variante BEM --mise-en-avant) -->
+                    <div class="carte carte--mise-en-avant">
+                        <img src="https://picsum.photos/800/300?random=10" alt="Capture du projet phare" class="carte__image">
+                        <div class="carte__contenu">
+                            <span class="carte__badge">Projet phare</span>
+                            <h3 class="carte__titre">Refonte e-commerce</h3>
+                            <p class="carte__texte">
+                                Refonte complete d'un site e-commerce avec un design
+                                moderne, des animations fluides et une navigation optimisee
+                                pour le mobile.
+                            </p>
+                            <a href="#" class="bouton bouton--principal">Voir le projet</a>
+                        </div>
+                    </div>
+
+                    <!-- Carte 1 -->
+                    <div class="carte">
+                        <img src="https://picsum.photos/400/250?random=11" alt="Capture du portfolio" class="carte__image">
+                        <div class="carte__contenu">
+                            <span class="carte__badge">Web</span>
+                            <h3 class="carte__titre">Portfolio photographe</h3>
+                            <p class="carte__texte">
+                                Site vitrine pour un photographe avec galerie d'images
+                                et formulaire de contact.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Carte 2 -->
+                    <div class="carte">
+                        <img src="https://picsum.photos/400/250?random=12" alt="Capture du blog" class="carte__image">
+                        <div class="carte__contenu">
+                            <span class="carte__badge">Blog</span>
+                            <h3 class="carte__titre">Blog culinaire</h3>
+                            <p class="carte__texte">
+                                Blog de recettes de cuisine avec systeme de categories
+                                et recherche par ingredient.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Carte 3 -->
+                    <div class="carte">
+                        <img src="https://picsum.photos/400/250?random=13" alt="Capture de l'application" class="carte__image">
+                        <div class="carte__contenu">
+                            <span class="carte__badge">Application</span>
+                            <h3 class="carte__titre">Dashboard meteo</h3>
+                            <p class="carte__texte">
+                                Application web affichant les previsions meteo
+                                avec des graphiques interactifs.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- ========================================
+                 SECTION TYPOGRAPHIE ET TEXTE
+                 ======================================== -->
+            <section class="section" id="typographie">
+                <h2 class="section__titre">Typographie et mise en forme</h2>
+                <p class="section__sous-titre">
+                    Exemples des differents niveaux de titres et styles de texte
+                </p>
+
+                <h1>Titre de niveau 1 (h1)</h1>
+                <h2>Titre de niveau 2 (h2)</h2>
+                <h3>Titre de niveau 3 (h3)</h3>
+                <h4>Titre de niveau 4 (h4)</h4>
+                <h5>Titre de niveau 5 (h5)</h5>
+                <h6>Titre de niveau 6 (h6)</h6>
+
+                <p class="mb-md">
+                    Ceci est un paragraphe normal. Le CSS applique la police
+                    <strong>Segoe UI</strong> definie dans les variables CSS, avec une hauteur
+                    de ligne de <em>1.7</em> pour une lecture confortable.
+                </p>
+
+                <p><strong>Texte en gras</strong> avec la balise strong.</p>
+                <p><em>Texte en italique</em> avec la balise em.</p>
+                <p><small>Texte plus petit</small> avec la balise small.</p>
+                <p><code>Code en ligne</code> avec la balise code.</p>
+
+                <blockquote>
+                    "Le design n'est pas seulement ce a quoi ca ressemble. Le design,
+                    c'est comment ca fonctionne." — Steve Jobs
+                </blockquote>
+
+                <!-- Classes utilitaires de texte -->
+                <p class="texte-centre mt-md">Texte centre (.texte-centre)</p>
+                <p class="texte-droite">Texte a droite (.texte-droite)</p>
+                <p class="texte-majuscules">texte en majuscules (.texte-majuscules)</p>
+                <p class="texte-gras">Texte en gras (.texte-gras)</p>
+                <p class="texte-leger">Texte leger (.texte-leger)</p>
+            </section>
+
+
+            <!-- ========================================
+                 SECTION BOX MODEL
+                 ======================================== -->
+            <section class="section" id="box-model">
+                <h2 class="section__titre">Le modele de boite (Box Model)</h2>
+                <p class="section__sous-titre mb-lg">
+                    Demonstration des bordures et du modele de boite CSS
+                </p>
+
+                <!-- Demonstration des types de bordures -->
+                <div class="demo-bordures">
+                    <div class="demo-bordure demo-bordure--solid">
+                        Bordure solid
+                    </div>
+                    <div class="demo-bordure demo-bordure--dashed">
+                        Bordure dashed
+                    </div>
+                    <div class="demo-bordure demo-bordure--dotted">
+                        Bordure dotted
+                    </div>
+                    <div class="demo-bordure demo-bordure--double">
+                        Bordure double
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- ========================================
+                 SECTION POSITIONNEMENT
+                 ======================================== -->
+            <section class="section" id="position">
+                <h2 class="section__titre">Positionnement CSS</h2>
+                <p class="section__sous-titre mb-lg">
+                    Exemples de position relative, absolue et sticky
+                </p>
+
+                <!-- Conteneur de demonstration du positionnement -->
+                <div class="demo-position">
+                    <div class="demo-position__relatif">
+                        Position relative (decale de sa position normale)
+                    </div>
+                    <div class="demo-position__absolu">
+                        Position absolue (place par rapport au conteneur)
+                    </div>
+                </div>
+
+                <div class="demo-sticky mt-md">
+                    <p>Element sticky (reste colle en haut lors du defilement)</p>
+                </div>
+            </section>
+
+
+            <!-- ========================================
+                 SECTION BOUTONS
+                 ======================================== -->
+            <section class="section" id="boutons">
+                <h2 class="section__titre">Les boutons</h2>
+                <p class="section__sous-titre mb-lg">
+                    Differentes variantes de boutons avec transitions CSS
+                </p>
+
+                <div class="d-flex flex-centre mb-md" style="gap: 1rem; flex-wrap: wrap;">
+                    <button class="bouton bouton--principal">Bouton principal</button>
+                    <button class="bouton bouton--secondaire">Bouton secondaire</button>
+                    <button class="bouton bouton--succes">Bouton succes</button>
+                </div>
+            </section>
+
+
+            <!-- ========================================
+                 SECTION ANIMATIONS
+                 ======================================== -->
+            <section class="section" id="animations">
+                <h2 class="section__titre texte-centre">Animations CSS</h2>
+                <p class="section__sous-titre texte-centre mb-lg">
+                    Exemples d'animations avec @keyframes
+                </p>
+
+                <div class="d-flex flex-centre" style="gap: 2rem; flex-wrap: wrap;">
+                    <div class="animer-fondu demo-bordure demo-bordure--solid">
+                        Fondu entrant
+                    </div>
+                    <div class="animer-glissement demo-bordure demo-bordure--solid">
+                        Glissement gauche
+                    </div>
+                    <div class="animer-pulsation demo-bordure demo-bordure--solid">
+                        Pulsation
+                    </div>
+                    <div class="animer-rotation demo-bordure demo-bordure--solid" style="display: inline-block;">
+                        &#9881;
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- ========================================
+                 SECTION CONTENU + SIDEBAR (Grid 2 col)
+                 ======================================== -->
+            <section class="section" id="contenu-sidebar">
+                <h2 class="section__titre">Mise en page : contenu + sidebar</h2>
+                <p class="section__sous-titre mb-lg">
+                    CSS Grid avec deux colonnes (contenu principal + barre laterale)
+                </p>
+
+                <div class="grille-contenu">
+                    <!-- Colonne principale -->
+                    <div class="contenu">
+                        <h3>Article principal</h3>
+                        <p class="mb-md">
+                            Ceci represente la zone de contenu principal. En CSS Grid,
+                            cette colonne occupe la majorite de la largeur (1fr) tandis
+                            que la sidebar a une largeur fixe de 280px sur les ecrans
+                            larges. Sur mobile, tout passe en une seule colonne.
+                        </p>
+                        <p class="mb-md">
+                            La grille est definie avec <code>.grille-contenu</code> qui
+                            utilise <code>display: grid</code> et
+                            <code>grid-template-columns</code> avec des media queries
+                            pour s'adapter aux differentes tailles d'ecran.
+                        </p>
+                        <p>
+                            Cette mise en page est tres courante pour les blogs, les
+                            sites de documentation et les pages d'articles.
+                        </p>
+                    </div>
+
+                    <!-- Sidebar -->
+                    <aside class="sidebar">
+                        <h4 class="sidebar__titre">Navigation rapide</h4>
+                        <div class="sidebar__liste">
+                            <a href="#hero" class="sidebar__lien">Accueil</a>
+                            <a href="#services" class="sidebar__lien">Services</a>
+                            <a href="#projets" class="sidebar__lien">Projets</a>
+                            <a href="#typographie" class="sidebar__lien">Typographie</a>
+                            <a href="#box-model" class="sidebar__lien">Box Model</a>
+                            <a href="#formulaire" class="sidebar__lien">Contact</a>
+                        </div>
+                    </aside>
+                </div>
+            </section>
+
+
+            <!-- ========================================
+                 SECTION FORMULAIRE
+                 ======================================== -->
+            <section class="section" id="formulaire">
+                <h2 class="section__titre">Formulaire de contact</h2>
+                <p class="section__sous-titre mb-lg">
+                    Styles des champs avec etats focus, hover et validation
+                </p>
+
+                <form class="formulaire" action="#" method="POST" novalidate>
+                    <div class="formulaire__groupe">
+                        <label class="formulaire__label" for="css-nom">Nom complet</label>
+                        <input class="formulaire__champ" type="text" id="css-nom" name="nom"
+                               placeholder="Entrez votre nom" required>
+                    </div>
+
+                    <div class="formulaire__groupe">
+                        <label class="formulaire__label" for="css-email">Adresse e-mail</label>
+                        <input class="formulaire__champ" type="email" id="css-email" name="email"
+                               placeholder="exemple@domaine.fr" required>
+                    </div>
+
+                    <div class="formulaire__groupe">
+                        <label class="formulaire__label" for="css-sujet">Sujet</label>
+                        <input class="formulaire__champ" type="text" id="css-sujet" name="sujet"
+                               placeholder="Le sujet de votre message">
+                    </div>
+
+                    <div class="formulaire__groupe">
+                        <label class="formulaire__label" for="css-message">Message</label>
+                        <textarea class="formulaire__champ" id="css-message" name="message" rows="5"
+                                  placeholder="Ecrivez votre message ici..." required></textarea>
+                    </div>
+
+                    <div>
+                        <button type="submit" class="bouton bouton--principal">Envoyer</button>
+                        <button type="reset" class="bouton bouton--secondaire">Reinitialiser</button>
+                    </div>
+                </form>
+            </section>
+
+
+            <!-- ========================================
+                 SECTION CLASSES UTILITAIRES
+                 ======================================== -->
+            <section class="section" id="utilitaires">
+                <h2 class="section__titre">Classes utilitaires</h2>
+                <p class="section__sous-titre mb-lg">
+                    Espacement, affichage et effets rapides
+                </p>
+
+                <!-- Demonstration des marges -->
+                <div class="mb-sm p-sm demo-bordure demo-bordure--dashed">mb-sm + p-sm</div>
+                <div class="mb-md p-md demo-bordure demo-bordure--dashed">mb-md + p-md</div>
+                <div class="mb-lg p-lg demo-bordure demo-bordure--dashed">mb-lg + p-lg</div>
+                <div class="mb-xl p-xl demo-bordure demo-bordure--dashed">mb-xl + p-xl</div>
+
+                <!-- Demonstration de l'effet hover ombre -->
+                <div class="survol-ombre p-lg mt-lg demo-bordure demo-bordure--solid texte-centre">
+                    Survolez-moi pour voir l'effet d'ombre (.survol-ombre)
+                </div>
+            </section>
+
+        </main>
+        <!-- Fin du contenu principal -->
+
+
+        <!-- ============================================================
+             FOOTER : PIED DE PAGE
+             Grille Flexbox responsive avec 3 colonnes
+             ============================================================ -->
+        <footer class="footer">
+            <div class="conteneur">
+                <div class="footer__grille">
+                    <!-- Colonne 1 : A propos -->
+                    <div class="footer__colonne">
+                        <h4 class="footer__titre">A propos</h4>
+                        <p>
+                            Page de demonstration pour le cours CSS.
+                            Toutes les notions du cours sont illustrees ici.
+                        </p>
+                    </div>
+
+                    <!-- Colonne 2 : Liens rapides -->
+                    <div class="footer__colonne">
+                        <h4 class="footer__titre">Liens rapides</h4>
+                        <div class="footer__liste">
+                            <a href="#hero" class="footer__lien">Accueil</a>
+                            <a href="#services" class="footer__lien">Services</a>
+                            <a href="#projets" class="footer__lien">Projets</a>
+                            <a href="#formulaire" class="footer__lien">Contact</a>
+                        </div>
+                    </div>
+
+                    <!-- Colonne 3 : Sections du cours -->
+                    <div class="footer__colonne">
+                        <h4 class="footer__titre">Sections du cours</h4>
+                        <div class="footer__liste">
+                            <a href="#typographie" class="footer__lien">Typographie</a>
+                            <a href="#box-model" class="footer__lien">Box Model</a>
+                            <a href="#animations" class="footer__lien">Animations</a>
+                            <a href="#utilitaires" class="footer__lien">Utilitaires</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Copyright -->
+                <div class="footer__bas">
+                    <p>&copy; 2026 - Cours CSS pour debutants. Tous droits reserves.</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- Fin de .page -->
+
+</body>
+</html>
