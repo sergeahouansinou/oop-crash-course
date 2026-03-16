@@ -1,4 +1,4 @@
-# Cours Web - Du HTML a l'API REST
+# Cours Web - Du HTML a MySQL
 
 Cours complet de developpement web en francais, couvrant les fondamentaux du frontend au backend. Chaque module contient une lecon detaillee, des fichiers de code commentes et 5 exercices progressifs avec solutions.
 
@@ -23,6 +23,7 @@ Les modules sont conçus pour etre suivis dans l'ordre :
 | 04  | **POO PHP**    | Classes, heritage, encapsulation, polymorphisme, interfaces        | `LEARN_POO.md`        |
 | 05  | **Formulaire** | Validation client (JS) + serveur (PHP OOP), sanitization, securite | `LEARN_FORMULAIRE.md` |
 | 06  | **API REST**   | CRUD PHP/MySQL, PDO, requetes preparees, JSON, test Postman        | `LEARN_API_REST.md`   |
+| 07  | **MySQL**      | Base relationnelle, CREATE/SELECT/UPDATE/DELETE, jointures, index   | `LEARN_MYSQL.md`      |
 
 ## Comment utiliser ce cours
 
@@ -68,6 +69,18 @@ Le formulaire envoie les donnees vers `traitement.php` pour la validation serveu
 http://localhost:8888/oop-crash-course/cours-web/06_API_REST/index.php?action=produits
 ```
 
+### Module 07 (MySQL)
+
+Executer les fichiers SQL dans phpMyAdmin (onglet SQL) ou en ligne de commande :
+
+```bash
+/Applications/MAMP/Library/bin/mysql -u root -proot < cours-web/07_MySQL/01_creation.sql
+/Applications/MAMP/Library/bin/mysql -u root -proot < cours-web/07_MySQL/02_requetes_lecture.sql
+/Applications/MAMP/Library/bin/mysql -u root -proot < cours-web/07_MySQL/03_requetes_modification.sql
+```
+
+Executer les fichiers dans l'ordre : `01_creation.sql` cree la base, les suivants l'utilisent.
+
 ## Progression pedagogique
 
 ```
@@ -78,6 +91,9 @@ HTML (structure) → CSS (style) → JavaScript (interactivite)
                                         |
                                         v
                                    API REST (CRUD, MySQL, JSON)
+                                        |
+                                        v
+                                   MySQL (base relationnelle, SQL)
 ```
 
-Chaque module s'appuie sur les precedents. Le module 06 combine PHP OOP (module 04), la validation (module 05) et fetch/JSON (module 03).
+Chaque module s'appuie sur les precedents. Le module 06 combine PHP OOP (module 04), la validation (module 05) et fetch/JSON (module 03). Le module 07 approfondit MySQL de maniere autonome.
